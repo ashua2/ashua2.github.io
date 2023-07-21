@@ -10,9 +10,8 @@
         <p style="font-family:tahoma">testing</p>
         <svg width="700" height="700"></svg>
         <script>
-            d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/622f40683fd737585f8827524980969a5c5549cb/cleaned_covid_deaths_cases_by_race.csv", (d) => {
-                console.log(d)
-            });
+            var data = await d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/622f40683fd737585f8827524980969a5c5549cb/cleaned_covid_deaths_cases_by_race.csv");
+            console.log(data);
 
 
 
