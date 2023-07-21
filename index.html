@@ -2,10 +2,29 @@
 <html>
     <head>
         <script src="https://d3js.org/d3.v6.min.js"></script>
+        <script src="https://unpkg.com/topojson-client@3"></script>
     </head>
     <body>
         <p>
             is this even working?
         </p>
+        <script>
+            var width = 500;
+            var height = 500;
+
+            var svg = d3.select("body").append("svg")
+             .attr("width", width)
+             .attr("height", height);
+
+            var projection = d3.geo.albers()
+             .center([0,40.7])
+             .rotate([74,0])
+             .translate([width/2,height/2])
+             .scale(65000);
+
+            var path = d3.geo.path()
+             .projection(projection);
+
+        </script>
     </body>
 </html>
