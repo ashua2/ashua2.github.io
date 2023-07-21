@@ -10,8 +10,13 @@
         <p style="font-family:tahoma">testing</p>
         <svg width="700" height="700"></svg>
         <script>
-            var data = await d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/622f40683fd737585f8827524980969a5c5549cb/cleaned_covid_deaths_cases_by_race.csv");
-            console.log(data);
+            d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/622f40683fd737585f8827524980969a5c5549cb/cleaned_covid_deaths_cases_by_race.csv", (data) => {
+                console.log(data)
+            });
+
+            var dates_x_axis = d3.scaleTime()
+                .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
+                .range([0, width]);
 
 
 
