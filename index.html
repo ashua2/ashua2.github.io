@@ -4,29 +4,33 @@
         <script src="https://d3js.org/d3.v6.min.js"></script>
         <script src="https://unpkg.com/topojson-client@3"></script>
         <p>
-            updated :p
+            updated
         </p>
         <script>
-            var width = 500;
-            var height = 500;
-
-            var gfg = d3.geoAlbers()
-             .scale(width / 1.5 / Math.PI)
-             .translate([width / 2, height / 2])
+            var svg = d3.select("svg"),
+            width = svg.attr(500),
+            height = svg.attr(500);
  
 
+            var gfg = d3.geoAlbers()
+            .scale(width / 1.5 / Math.PI)
+            .translate([width / 2, height / 2])
+        
+
             d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/geoworld%20.json",
-            function(data) {
+            function(data)
+            {
 
             svg.append("g")
-             .selectAll("path")
-             .data(data.features)
-             .enter().append("path")
-              .attr("fill", "grey")
-              .attr("d", d3.geoPath()
-              .projection(gfg))
-             .style("stroke", "#ffff")
-            })
+                .selectAll("path")
+                .data(data.features)
+                .enter().append("path")
+                    .attr("fill", "grey")
+                    .attr("d", d3.geoPath()
+                    .projection(gfg)
+                    )
+                .style("stroke", "#ffff")
+        })
 
         </script>
     </body>
