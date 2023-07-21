@@ -4,7 +4,7 @@
         <script src="https://d3js.org/d3.v6.min.js"></script>
         <script src="https://unpkg.com/topojson-client@3"></script>
         <p>
-            updated again
+            updated
         </p>
         <script>
             var width = 500;
@@ -28,6 +28,11 @@
             d3.json("https://gist.githubusercontent.com/ashua2/ee0f36ae55339336c6b94b6fdf6b756e/raw/70ca362e40c44ff3919c01775f8b0f5dae9536fa/chicagozipbounds.json", function(error, chi) {
                 console.log(chi)
                 if (error) return console.error(error);
+                var zips = topojson.feature(chi, chi.zip);
+
+                svg.append("path")
+                 .datum(zips)
+                 .attr("d", path);
             });
 
         </script>
