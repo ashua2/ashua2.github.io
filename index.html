@@ -10,13 +10,19 @@
         <p style="font-family:tahoma">testing</p>
         <svg width="700" height="700"></svg>
         <script>
-            d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/622f40683fd737585f8827524980969a5c5549cb/cleaned_covid_deaths_cases_by_race.csv", (data) => {
-                console.log(data[0])
+            var width = 700;
+            var height = 700;
+            d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv", (data) => {
+                console.log(data)
             });
 
             var dates_x_axis = d3.scaleTime()
                 .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
                 .range([0, width]);
+
+            var deaths_y_axis = d3.scaleLinear()
+                .domain([0, 70])
+                .range([height, 0]);
 
 
 
