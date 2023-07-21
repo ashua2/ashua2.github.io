@@ -12,7 +12,7 @@
         <script>
             var width = 700;
             var height = 700;
-            async function init() {
+            async function getData() {
                 var data = await d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv");
 
                 var dates_x_axis = d3.scaleTime()
@@ -24,9 +24,11 @@
                     .range([height, 0]);
 
                 var colors_race = ["cornflowerblue", "lightpink", "mediumaquamarine", "sienna", "navajowhite"];
-
-                console.log(data.deathsTotal);
             }
+            
+            getData().then(data => {
+                console.log(data.deathsTotal);
+            });
 
 
         </script>
