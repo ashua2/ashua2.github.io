@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <body>
         <script src="https://d3js.org/d3.v6.min.js"></script>
         <script src="https://unpkg.com/topojson-client@3"></script>
-    </head>
-    <body>
         <p>
-            1
+            updated :p
         </p>
         <script>
             var width = 500;
             var height = 500;
 
-            var svg = d3.select("body").append("svg")
-             .attr("width", width)
-             .attr("height", height);
+            var gfg = d3.geoAlbers()
+             .scale(width / 1.5 / Math.PI)
+             .translate([width / 2, height / 2])
+ 
 
-            var projection = d3.geoAlbers()
-             .center([0,40.7])
-             .rotate([74,0])
-             .translate([width/2,height/2])
-             .scale(65000);
+            d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/geoworld%20.json",
+            function(data) {
 
-            var path = d3.geoPath()
-             .projection(projection);
+            svg.append("g")
+             .selectAll("path")
+             .data(data.features)
+             .enter().append("path")
+              .attr("fill", "grey")
+              .attr("d", d3.geoPath()
+              .projection(gfg))
+             .style("stroke", "#ffff")
+            })
 
         </script>
     </body>
