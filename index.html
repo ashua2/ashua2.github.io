@@ -4,33 +4,31 @@
         <script src="https://d3js.org/d3.v6.min.js"></script>
         <script src="https://unpkg.com/topojson-client@3"></script>
         <p>
-            updated
+            updated again
         </p>
         <script>
-            var svg = d3.select("svg"),
-            width = svg.attr(500),
-            height = svg.attr(500);
- 
+            var width = 500;
+            var height = 500;
 
-            var gfg = d3.geoAlbers()
-            .scale(width / 1.5 / Math.PI)
-            .translate([width / 2, height / 2])
-        
+            var svg = d3.select("body").append("svg")
+             .attr("width", width)
+             .attr("height", height);
 
-            d3.json("https://raw.githubusercontent.com/janasayantan/datageojson/master/geoworld%20.json",
-            function(data)
-            {
+            var projection = d3.geoAlbers()
+             .center([0,41.8])
+             .rotate([87.6,0])
+             .parallels([40, 45])
+             .scale(30000)
+             .translate([width/2,height/2])
 
-            svg.append("g")
-                .selectAll("path")
-                .data(data.features)
-                .enter().append("path")
-                    .attr("fill", "grey")
-                    .attr("d", d3.geoPath()
-                    .projection(gfg)
-                    )
-                .style("stroke", "#ffff")
-        })
+            var path = d3.geoPath()
+             .projection(projection);
+
+
+            d3.json("https://github.com/ashua2/cs416-narrative-vis/blob/main/data/chicagozipbounds.json", function(error, chi) {
+                console.log(chi)
+                if (error) return console.error(error);
+            });
 
         </script>
     </body>
