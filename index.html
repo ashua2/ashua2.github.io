@@ -12,38 +12,21 @@
         <script>
             var width = 700;
             var height = 700;
-            d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv", function(d) {
-                return {
-                    total_deaths: +d.deathsTotal,
-                    total_cases: +d.casesTotal,
-                    total_hosp: +d.hospitalizationsTotal,
-                    latinx_deaths: +d.deaths_latinx,
-                    asian_deaths: +d.deaths_asian_nonlat,
-                    black_deaths: +d.deaths_black_nonlat,
-                    white_deaths: +d.deaths_white_nonlat,
-                    other_deaths: +d.deaths_other_nonlat,
-                    cases_ages_0_17: +d.cases_0_17,
-                    cases_ages_18_29: +d.cases_18_29,
-                    cases_ages_30_39: +d.cases_30_39,
-                    cases_ages_40_49: +d.cases_40_49,
-                    cases_ages_50_59: +d.cases_50_59,
-                    cases_ages_60_69: +d.cases_60_69,
-                    cases_ages_70_79: +d.cases_70_79,
-                    cases_ages_80_plus: +d.cases_80
-                }; 
-                }, function(error, rows) {console.log(rows);});
+            async function init() {
+                var data = await d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv");
 
-            var dates_x_axis = d3.scaleTime()
-                .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
-                .range([0, width]);
+                var dates_x_axis = d3.scaleTime()
+                    .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
+                    .range([0, width]);
 
-            var deaths_y_axis = d3.scaleLinear()
-                .domain([0, 70])
-                .range([height, 0]);
+                var deaths_y_axis = d3.scaleLinear()
+                    .domain([0, 70])
+                    .range([height, 0]);
 
-            var colors_race = ["cornflowerblue", "lightpink", "mediumaquamarine", "sienna", "navajowhite"];
-            console.log(total_deaths);
+                var colors_race = ["cornflowerblue", "lightpink", "mediumaquamarine", "sienna", "navajowhite"];
 
+                console.log(data.deathsTotal);
+            }
 
 
         </script>
