@@ -1,40 +1,15 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>
+            Data Visualization of COVID-19 in Chicago
+        </title>
+    </head>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
     <body>
-        <script src="https://d3js.org/d3.v6.min.js"></script>
-        <script src="https://unpkg.com/topojson-client@3"></script>
         <p>
-            updated
+            testing
         </p>
-        <script>
-            var width = 500;
-            var height = 500;
-
-            var svg = d3.select("body").append("svg")
-             .attr("width", width)
-             .attr("height", height);
-
-            var projection = d3.geoAlbers()
-             .center([0,41.8])
-             .rotate([87.6,0])
-             .parallels([40, 45])
-             .scale(30000)
-             .translate([width/2,height/2])
-
-            var path = d3.geoPath()
-             .projection(projection);
-
-
-            d3.json("https://gist.githubusercontent.com/ashua2/ee0f36ae55339336c6b94b6fdf6b756e/raw/70ca362e40c44ff3919c01775f8b0f5dae9536fa/chicagozipbounds.json", function(error, chi) {
-                console.log(chi)
-                if (error) return console.error(error);
-                var zips = topojson.feature(chi, chi.zip);
-
-                svg.append("path")
-                 .datum(zips)
-                 .attr("d", path);
-            });
-
-        </script>
     </body>
 </html>
