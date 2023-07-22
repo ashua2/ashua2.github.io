@@ -153,20 +153,19 @@
                 var colors = ["orange", "violet", "cornflowerblue", "mediumaquamarine", "crimson"];
 
                 svg.selectAll("legenddots")
-                    .data(colors).enter()
-                    .append("circle")
-                        .attr("cx", 550)
-                        .attr("cy", function(d,i) {return 130 + i*30;})
-                        .attr("r", 5)
+                    .data(colors).enter().append("circle")
+                        .attr("cx", 750)
+                        .attr("cy", function(d,i) {return 75 + i*20;})
+                        .attr("r", 3)
                         .style("fill", function(d,i) {return d;});
                 
-                /* svg.append("text")
-                    .data(races).enter()
-                    .attr("x", "730")
-                    .attr("y", function(d,i) {return 130 + i*30;})
-                    .attr("alignment-baseline","middle")
-                    .text(function(d) {return d;})
-                    .style("font-size", "15px").style("font-family", "tahoma"); */
+                svg.selectAll("legendlabels")
+                    .data(races).enter().append("text")
+                        .attr("x", 765)
+                        .attr("y", function(d,i) {return 75 + i*20;})
+                        .attr("alignment-baseline","middle")
+                        .text(function(d) {return d;})
+                        .style("font-size", "13px").style("font-family", "tahoma");
             });
         </script>
     </body>
