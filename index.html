@@ -6,7 +6,7 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://unpkg.com/topojson-client@3"></script>
     <body>
-        <h1 style="text-align:center;font-family:tahoma;color:darkslategrey">Data Visualization of COVID-19 in Chicago</h1>
+        <h1 style="text-align:center;font-family:tahoma;color:darkslategray">Data Visualization of COVID-19 in Chicago</h1>
         <p style="font-family:tahoma">testing</p>
 
         <div id="linechart"></div>
@@ -70,7 +70,7 @@
                     .range([0, width]);
 
                 var deaths_y_axis = d3.scaleLinear()
-                    .domain([0, 70])
+                    .domain([0, 30])
                     .range([height, 0]);
 
                 var colors_race = ["cornflowerblue", "lightpink", "mediumaquamarine", "sienna", "navajowhite"];
@@ -95,7 +95,7 @@
                 svg.append("path")
                     .datum(dates_deaths_race)
                     .attr("fill", "none")
-                    .attr("stroke", "lightpink")
+                    .attr("stroke", "rebeccapurple")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
@@ -122,7 +122,7 @@
                 svg.append("path")
                     .datum(dates_deaths_race)
                     .attr("fill", "none")
-                    .attr("stroke", "navajowhite")
+                    .attr("stroke", "orange")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
