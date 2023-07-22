@@ -56,7 +56,10 @@
                         "white_deaths": +data.deaths_white_nonlat,
                         "other_deaths": +data.deaths_other_nonlat */
                     }
-                    dates_deaths_race.push(race_deaths);
+                    if (race_deaths.date <= new Date(2021, 2, 1) && race_deaths.date >= new Date(2020, 2, 1)) {
+                        dates_deaths_race.push(race_deaths);
+                    }
+                    
                 });
 
                 console.log(dates_deaths_race);
