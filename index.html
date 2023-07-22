@@ -144,27 +144,28 @@
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
                         .y(function(d) { return deaths_y_axis(d.other_deaths) + margin.top*2 }));
 
-               var legend_codes = [{"color": "orange", "race": "Black"}, 
+               /* var legend_codes = [{"color": "orange", "race": "Black"}, 
                     {"color": "crimson", "race": "Asian"},
                     {"color": "cornflowerblue", "race": "Latinx"},
                     {"color": "mediumaquamarine", "race": "Other"},
-                    {"color": "violet", "race": "White"}];
+                    {"color": "violet", "race": "White"}]; */
+                var races = ["Black", "Asian", "Latinx", "Other", "White"];
+                var colors = ["orange", "crimson", "cornflowerblue", "mediumaquamarine", "violet"];
 
                 svg.append("circle")
-                    .data(legend_codes).enter()
+                    .data(colors).enter()
                     .attr("cx", 725)
                     .attr("cy", function(d,i) {return 130 + i*30;})
                     .attr("r", 5)
-                    .style("fill", function(d) {return d.color;});
+                    .style("fill", function(d) {return d;});
                 
                 svg.append("text")
-                    .data(legend_codes).enter()
+                    .data(races).enter()
                     .attr("x", 730)
                     .attr("y", function(d,i) {return 130 + i*30;})
                     .attr("alignment-baseline","middle")
-                    .text(function(d) {return d.race;})
+                    .text(function(d) {return d;})
                     .style("font-size", "15px").style("font-family", "tahoma");
-                
             });
         </script>
     </body>
