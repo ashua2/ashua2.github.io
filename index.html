@@ -31,7 +31,7 @@
             var parseTime = d3.timeParse("%m-%d%-%Y");
 
             d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
-                console.log(dataset.columns.date);
+                console.log(dataset);
 
                 dataset.forEach(function(data) {
                     data.deathsTotal = +data.deathsTotal,
@@ -68,7 +68,7 @@
                     .call(d3.axisLeft(deaths_y_axis));
 
                 d3.select("svg").append("g")
-                    .attr("transform","translate(75," + (height + margin.top + 20) + ")")
+                    .attr("transform","translate(75," + (height + margin.top + 25) + ")")
                     .call(d3.axisBottom(dates_x_axis));
 
                 svg.append('text')
