@@ -49,12 +49,12 @@
                     data.cases_80 = +data.cases_80;
 
                     let race_deaths = {
-                        "date": data.date,
+                        "date": parseTime(data.date),
                         "latinx_deaths": +data.deaths_latinx,
-                        "asian_deaths": +data.deaths_asian_nonlat,
+                        /* "asian_deaths": +data.deaths_asian_nonlat,
                         "black_deaths": +data.deaths_black_nonlat,
                         "white_deaths": +data.deaths_white_nonlat,
-                        "other_deaths": +data.deaths_other_nonlat
+                        "other_deaths": +data.deaths_other_nonlat */
                     }
                     dates_deaths_race.push(race_deaths);
                 });
@@ -79,13 +79,13 @@
                     .call(d3.axisBottom(dates_x_axis));
 
                 svg.append("path")
-                    .datum(dataset)
+                    .datum(race_deaths)
                     .attr("fill", "none")
                     .attr("stroke", "steelblue")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return x(d.date) })
-                        .y(function(d) { return y(d.value) }));
+                        .x(function(d) { return deaths_x_axis(d.date) })
+                        .y(function(d) { return deaths_y_axis(d.latinx_deaths) }));
 
                 svg.append('text')
                  .attr('x', width/2)
