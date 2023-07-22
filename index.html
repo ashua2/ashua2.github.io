@@ -118,8 +118,8 @@
                 var mousemove = function(d) {
                     Tooltip
                         .html("<b>Deaths on "+d.date+":</b><br>Black: "+d.black_deaths+"<br>Asian: "+d.asian_deaths+"<br>Latinx: "+d.latinx_deaths+"<br>White: "+d.white_deaths+"<br>Other: "+d.other_deaths)
-                        .style("left", (d3.mouse(this)[0]+70) + "px")
-                        .style("top", (d3.mouse(this)[1]) + "px");
+                        .style("left", (d3.event.pageX + 70) + "px")
+                        .style("top", (d3.event.pageY) + "px");
                 }
 
                 var mouseleave = function(d) {
