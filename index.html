@@ -66,8 +66,23 @@
                     .call(d3.axisLeft(deaths_y_axis));
 
                 d3.select("svg").append("g")
-                    .attr("transform","translate(50," + (height + margin.top + margin.bottom) + ")")
+                    .attr("transform","translate(50," + (height + margin.top + (margin.bottom/2)) + ")")
                     .call(d3.axisBottom(dates_x_axis));
+
+                svg.append('text')
+                 .attr('x', width/2)
+                 .attr('y', height + 50)
+                 .attr('text-anchor', 'middle')
+                 .style('font-family', 'tahoma')
+                 .style('font-size', 15)
+                 .text('Month');
+
+                svg.append('text')
+                 .attr('text-anchor', 'middle')
+                 .attr('transform', 'translate(-50,' + height/2 + ')rotate(-90)')
+                 .style('font-family', 'tahoma')
+                 .style('font-size', 15)
+                 .text('Deaths');
             });
         </script>
     </body>
