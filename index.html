@@ -49,7 +49,7 @@
                     data.cases_80 = +data.cases_80;
 
                     let race_deaths = {
-                        "date": parseTime(data.date),
+                        "date": new Date(+(data.date.slice(6)), +(data.date.slice(0,2) - 1), +(data.date.slice(3,5))),
                         "latinx_deaths": +data.deaths_latinx,
                         /* "asian_deaths": +data.deaths_asian_nonlat,
                         "black_deaths": +data.deaths_black_nonlat,
@@ -84,7 +84,7 @@
                     .call(d3.axisBottom(dates_x_axis));
 
                 svg.append("path")
-                    .datum(dates_race_deaths)
+                    .datum(dates_deaths_race)
                     .attr("fill", "none")
                     .attr("stroke", "steelblue")
                     .attr("stroke-width", 1.5)
