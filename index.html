@@ -119,7 +119,7 @@
                     Tooltip
                         .html("<b>Deaths on "+d.date+":</b><br>Black: "+d.black_deaths+"<br>Asian: "+d.asian_deaths+"<br>Latinx: "+d.latinx_deaths+"<br>White: "+d.white_deaths+"<br>Other: "+d.other_deaths)
                         .style("left", (event.x + 70) + "px")
-                        .style("top", (event.y) + "px");
+                        .style("top", (event.y - 30) + "px");
                 }
 
                 var mouseleave = function(d) {
@@ -164,9 +164,9 @@
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
                         .y(function(d) { return deaths_y_axis(d.black_deaths) + margin.top*2 }))
-                        .on("mouseover", mouseover)
-                        .on("mousemove", mousemove)
-                        .on("mouseleave", mouseleave);
+                    .on("mouseover", mouseover)
+                    .on("mousemove", mousemove)
+                    .on("mouseleave", mouseleave);
 
                 svg.append("path")
                     .datum(dates_deaths_race)
