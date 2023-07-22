@@ -28,7 +28,7 @@
                     .append("g")
                         .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-            var parseTime = d3.timeParse("%m-%d%-%Y");
+            var parseTime = d3.timeParse('%m-%d%-%Y');
 
             d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
                 console.log(dataset);
@@ -60,6 +60,11 @@
                 });
 
                 console.log(dates_deaths_race);
+
+                var dates_x_axis_simplified = d3.scaleLinear()
+                    .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
+                    .range([0, width]);
+
                 var dates_x_axis = d3.scaleTime()
                     .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
                     .range([0, width]);
@@ -79,7 +84,7 @@
                     .call(d3.axisBottom(dates_x_axis));
 
                 svg.append("path")
-                    .datum(race_deaths)
+                    .datum(dates_race_deaths)
                     .attr("fill", "none")
                     .attr("stroke", "steelblue")
                     .attr("stroke-width", 1.5)
