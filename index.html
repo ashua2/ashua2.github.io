@@ -16,17 +16,30 @@
 
 
         <script>
+            // svg + chart legend
             var margin = {top: 10, right: 40, bottom: 100, left: 100};
 
             width = 960 - margin.left - margin.right;
             height = 500 - margin.top - margin.bottom; 
+
+            var colors = ["orange", "crimson", "cornflowerblue", "mediumaquamarine", "violet"];
+            var races = ["Black", "Asian", "Latinx", "Other", "White"];
 
             var svg = d3.select("#linechart")
                     .append("svg")
                         .attr("width", width + margin.left + margin.right)
                         .attr("height", height + margin.top + margin.bottom)
                     .append("g")
-                        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+                        .attr("transform","translate(" + margin.left + "," + margin.top + ")")
+                    .append("circle")
+                        .attr("cx",725).attr("cy", function(d,i) {return 130 + i*30;}).attr("r", 10)
+                        .style("fill", function(d,i) {return colors[i];})
+                    .append("text")
+                        .attr("x", 730).attr("y", function(d,i) {return 130 + i*30;}).attr("alignment-baseline","middle")
+                        .text(function(d,i) {return races[i];})
+                        .style("font-size", "15px").style("font-family", "tahoma");
+
+            // dataset cleaning + storing
 
             var parseTime = d3.timeParse('%m-%d%-%Y');
 
@@ -68,6 +81,7 @@
 
                 console.log(dates_deaths_race);
 
+            // creating axes + labels
 
                 var dates_x_axis = d3.scaleTime()
                     .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
@@ -76,8 +90,6 @@
                 var deaths_y_axis = d3.scaleLinear()
                     .domain([0, 30])
                     .range([height, 0]);
-
-                var colors_race = ["cornflowerblue", "lightpink", "mediumaquamarine", "sienna", "navajowhite"];
                 
                 d3.select("svg").append("g")
                     .attr("transform","translate(75,30)")
@@ -86,6 +98,18 @@
                 d3.select("svg").append("g")
                     .attr("transform","translate(75," + (height + margin.top + 20) + ")")
                     .call(d3.axisBottom(dates_x_axis));
+                
+                svg.append('text')
+                    .attr('x', width/2).attr('y', height + 65).attr('text-anchor', 'middle')
+                    .style('font-family', 'tahoma').style('font-size', 15)
+                    .text('Month');
+
+                svg.append('text')
+                    .attr('text-anchor', 'middle').attr('transform', 'translate(-60,' + height/2 + ')rotate(-90)')
+                    .style('font-family', 'tahoma').style('font-size', 15)
+                    .text('Deaths');
+
+            // colored lines
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -99,7 +123,7 @@
                 svg.append("path")
                     .datum(dates_deaths_race)
                     .attr("fill", "none")
-                    .attr("stroke", "rebeccapurple")
+                    .attr("stroke", "crimson")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
@@ -117,7 +141,7 @@
                 svg.append("path")
                     .datum(dates_deaths_race)
                     .attr("fill", "none")
-                    .attr("stroke", "sienna")
+                    .attr("stroke", "violet")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
@@ -131,21 +155,7 @@
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
                         .y(function(d) { return deaths_y_axis(d.other_deaths) + margin.top*2 }));
-
-                svg.append('text')
-                 .attr('x', width/2)
-                 .attr('y', height + 65)
-                 .attr('text-anchor', 'middle')
-                 .style('font-family', 'tahoma')
-                 .style('font-size', 15)
-                 .text('Month');
-
-                svg.append('text')
-                 .attr('text-anchor', 'middle')
-                 .attr('transform', 'translate(-60,' + height/2 + ')rotate(-90)')
-                 .style('font-family', 'tahoma')
-                 .style('font-size', 15)
-                 .text('Deaths');
+                
             });
         </script>
     </body>
