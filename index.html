@@ -111,7 +111,7 @@
                 svg.append("path")
                     .datum(dates_deaths_race)
                     .attr("fill", "none")
-                    .attr("stroke", "crimson")
+                    .attr("stroke", "violet")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
@@ -129,7 +129,7 @@
                 svg.append("path")
                     .datum(dates_deaths_race)
                     .attr("fill", "none")
-                    .attr("stroke", "violet")
+                    .attr("stroke", "crimson")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
@@ -150,12 +150,12 @@
                     {"color": "mediumaquamarine", "race": "Other"},
                     {"color": "violet", "race": "White"}]; */
                 var races = ["Black", "Asian", "Latinx", "Other", "White"];
-                var colors = ["orange", "crimson", "cornflowerblue", "mediumaquamarine", "violet"];
+                var colors = ["orange", "violet", "cornflowerblue", "mediumaquamarine", "crimson"];
 
                 svg.append("circle")
-                    .data(colors).enter()
-                    .attr("cx", "725")
-                    .attr("cy", function(d,i) {return 130 + i*30;})
+                    //.data(colors).enter()
+                    .attr("cx", 725);
+                    /* .attr("cy", function(d,i) {return 130 + i*30;})
                     .attr("r", "5")
                     .style("fill", function(d) {return d;});
                 
@@ -165,7 +165,7 @@
                     .attr("y", function(d,i) {return 130 + i*30;})
                     .attr("alignment-baseline","middle")
                     .text(function(d) {return d;})
-                    .style("font-size", "15px").style("font-family", "tahoma");
+                    .style("font-size", "15px").style("font-family", "tahoma"); */
             });
         </script>
     </body>
