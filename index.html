@@ -8,15 +8,49 @@
     <body>
         <h1 style="text-align:center;font-family:tahoma;color:darkslategrey">Data Visualization of COVID-19 in Chicago</h1>
         <p style="font-family:tahoma">testing</p>
-        <svg width="700" height="700"></svg>
+
+        <div id="bars"></div>
+
+
+
+
+
         <script>
-            var width = 700;
-            var height = 700;
-            var margin = 50;
-            async function getData() {
-                var data = await d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv");
+            var margin = {top: 10, right: 30, bottom: 20, left: 50};
 
+            width = 460 - margin.left - margin.right;
+            height = 400 - margin.top - margin.bottom; 
 
+            var svg = d3.select("#bars")
+                    .append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+            d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
+                console.log(dataset);
+
+                dataset.forEach(function(data) {
+                    data.deathsTotal = +data.deathsTotal,
+                    data.casesTotal = +data.casesTotal
+                    data.hospitalizationsTotal = +data.hospitalizationsTotal;
+                    data.deaths_latinx = +data.deaths_latinx;
+                    data.deaths_asian_nonlat = +data.deaths_asian_nonlat;
+                    data.deaths_black_nonlat = +data.deaths_black_nonlat;
+                    data.deaths_white_nonlat = +data.deaths_white_nonlat;
+                    data.deaths_other_nonlat = +data.deaths_other_nonlat;
+                    data.cases_0_17 = +data.cases_0_17;
+                    data.cases_18_29 = +data.cases_18_29;
+                    data.cases_30_39 = +data.cases_30_39;
+                    data.cases_40_49 = +data.cases_40_49;
+                    data.cases_50_59 = +data.cases_50_59;
+                    data.cases_60_69 = +data.cases_60_69;
+                    data.cases_70_79 = +data.cases_70_79;
+                    data.cases_80 = +data.cases_80;
+                });
+
+                
                 var dates_x_axis = d3.scaleTime()
                     .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
                     .range([0, width]);
@@ -34,28 +68,7 @@
                 d3.select("svg").append("g")
                     .attr("transform","translate(50,250)")
                     .call(d3.axisBottom(dates_x_axis));
-
-                svg.append('text')
-                    .attr('x', width / 2)
-                    .attr('y', height + 30)
-                    .attr('text-anchor', 'middle')
-                    .style('font-family', 'Helvetica')
-                    .style('font-size', 12)
-                    .text('Year');
-                        
-                svg.append('text')
-                    .attr('text-anchor', 'middle')
-                    .attr('transform', 'translate(-30,' + height / 2 + ')rotate(-90)')
-                    .style('font-family', 'Helvetica')
-                    .style('font-size', 12)
-                    .text('Deaths');
-
-            }
-
-            
-
-
-
+            });
         </script>
     </body>
 </html>
