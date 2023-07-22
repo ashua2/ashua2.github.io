@@ -154,14 +154,14 @@
 
                 svg.append("circle")
                     .data(colors).enter()
-                    .attr("cx", 725)
+                    .attr("cx", "725")
                     .attr("cy", function(d,i) {return 130 + i*30;})
-                    .attr("r", 5)
+                    .attr("r", "5")
                     .style("fill", function(d) {return d;});
                 
                 svg.append("text")
                     .data(races).enter()
-                    .attr("x", 730)
+                    .attr("x", "730")
                     .attr("y", function(d,i) {return 130 + i*30;})
                     .attr("alignment-baseline","middle")
                     .text(function(d) {return d;})
