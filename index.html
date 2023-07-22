@@ -105,7 +105,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.latinx_deaths) + margin.top*2 }));
+                        .y(function(d) { return deaths_y_axis(d.latinx_deaths) + margin.top*2 }))
+                    .on("mouseover", mouseover)
+                    .on("mousemove", mousemove)
+                    .on("mouseleave", mouseleave);
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -114,7 +117,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.asian_deaths) + margin.top*2 }));
+                        .y(function(d) { return deaths_y_axis(d.asian_deaths) + margin.top*2 }))
+                    .on("mouseover", mouseover)
+                    .on("mousemove", mousemove)
+                    .on("mouseleave", mouseleave);
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -123,7 +129,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.black_deaths) + margin.top*2 }));
+                        .y(function(d) { return deaths_y_axis(d.black_deaths) + margin.top*2 }))
+                    .on("mouseover", mouseover)
+                    .on("mousemove", mousemove)
+                    .on("mouseleave", mouseleave);
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -132,7 +141,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.white_deaths) + margin.top*2 }));
+                        .y(function(d) { return deaths_y_axis(d.white_deaths) + margin.top*2 }))
+                    .on("mouseover", mouseover)
+                    .on("mousemove", mousemove)
+                    .on("mouseleave", mouseleave);
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -141,7 +153,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.other_deaths) + margin.top*2 }));
+                        .y(function(d) { return deaths_y_axis(d.other_deaths) + margin.top*2 }))
+                    .on("mouseover", mouseover)
+                    .on("mousemove", mousemove)
+                    .on("mouseleave", mouseleave);
 
             // legend
 
