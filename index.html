@@ -54,7 +54,7 @@
                 var dates_x_axis = d3.scaleTime()
                     .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
                     .range([0, width])
-                    .ticks(d3.timeDay.every(7));
+                    .tickValues(d3.timeDay.every(7));
 
                 var deaths_y_axis = d3.scaleLinear()
                     .domain([0, 70])
@@ -67,7 +67,7 @@
                     .call(d3.axisLeft(deaths_y_axis));
 
                 d3.select("svg").append("g")
-                    .attr("transform","translate(50," + height + ")")
+                    .attr("transform","translate(50," + (height + margin.top) + ")")
                     .call(d3.axisBottom(dates_x_axis));
             });
         </script>
