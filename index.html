@@ -86,11 +86,11 @@
                 svg.append("path")
                     .datum(dates_deaths_race)
                     .attr("fill", "none")
-                    .attr("stroke", "steelblue")
+                    .attr("stroke", "cornflowerblue")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return dates_x_axis(d.date) })
-                        .y(function(d) { return deaths_y_axis(d.latinx_deaths) }));
+                        .x(function(d) { return dates_x_axis(d.date) - margin.right })
+                        .y(function(d) { return deaths_y_axis(d.latinx_deaths) + margin.top }));
 
                 svg.append('text')
                  .attr('x', width/2)
