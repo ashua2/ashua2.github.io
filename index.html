@@ -95,7 +95,7 @@
                     .attr('text-anchor', 'middle').attr('transform', 'translate(-60,' + height/2 + ')rotate(-90)')
                     .style('font-family', 'tahoma').style('font-size', 15)
                     .text('Deaths');
-                    
+
             // tooltip
                     var Tooltip = d3.select("#linechart")
                     .append("div")
@@ -124,7 +124,7 @@
 
                 var mouseleave = function(d) {
                     Tooltip
-                        .style("opacity", 0)
+                        .style("opacity", 1)
                     d3.select(this)
                         .style("stroke", "none")
                         .style("opacity", 1);
@@ -164,9 +164,9 @@
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
                         .y(function(d) { return deaths_y_axis(d.black_deaths) + margin.top*2 }))
-                    .on("mouseover", mouseover)
-                    .on("mousemove", mousemove)
-                    .on("mouseleave", mouseleave);
+                        .on("mouseover", mouseover)
+                        .on("mousemove", mousemove)
+                        .on("mouseleave", mouseleave);
 
                 svg.append("path")
                     .datum(dates_deaths_race)
