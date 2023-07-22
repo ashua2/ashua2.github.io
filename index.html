@@ -10,35 +10,15 @@
         <p style="font-family:tahoma">testing</p>
 
         <div id="linechart"></div>
-        <div id="linechartlegend"></div>
-
-
 
 
 
         <script>
-            // svg + chart legend
+            // svg
             var margin = {top: 10, right: 40, bottom: 100, left: 100};
 
             width = 960 - margin.left - margin.right;
             height = 500 - margin.top - margin.bottom; 
-
-            var legend_codes = [{"color": "orange", "race": "Black"}, 
-                                {"color": "crimson", "race": "Asian"},
-                                {"color": "cornflowerblue", "race": "Latinx"},
-                                {"color": "mediumaquamarine", "race": "Other"},
-                                {"color": "violet", "race": "White"}];
-
-            var legend = d3.select("linechartlegend")
-                .data(legend_codes)
-                .enter()
-                .append("circle")
-                    .attr("cx",725).attr("cy", function(d,i) {return 130 + i*30;}).attr("r", 5)
-                    .style("fill", function(d) {return d.color;})
-                .append("text")
-                    .attr("x", 730).attr("y", function(d,i) {return 130 + i*30;}).attr("alignment-baseline","middle")
-                    .text(function(d) {return d.race;})
-                    .style("font-size", "15px").style("font-family", "tahoma");
 
             var svg = d3.select("#linechart")
                 .append("svg")
@@ -163,6 +143,23 @@
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
                         .y(function(d) { return deaths_y_axis(d.other_deaths) + margin.top*2 }));
+
+               var legend_codes = [{"color": "orange", "race": "Black"}, 
+                    {"color": "crimson", "race": "Asian"},
+                    {"color": "cornflowerblue", "race": "Latinx"},
+                    {"color": "mediumaquamarine", "race": "Other"},
+                    {"color": "violet", "race": "White"}];
+
+                svg.append("circle")
+                    .data(legend_codes).enter()
+                    .attr("cx",725).attr("cy", function(d,i) {return 130 + i*30;}).attr("r", 5)
+                        .style("fill", function(d) {return d.color;});
+                
+                svg.append("text")
+                    .data(legend_codes).enter()
+                    .attr("x", 730).attr("y", function(d,i) {return 130 + i*30;}).attr("alignment-baseline","middle")
+                        .text(function(d) {return d.race;})
+                        .style("font-size", "15px").style("font-family", "tahoma");
                 
             });
         </script>
