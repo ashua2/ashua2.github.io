@@ -95,6 +95,40 @@
                     .attr('text-anchor', 'middle').attr('transform', 'translate(-60,' + height/2 + ')rotate(-90)')
                     .style('font-family', 'tahoma').style('font-size', 15)
                     .text('Deaths');
+                    
+            // tooltip
+                    var Tooltip = d3.select("#linechart")
+                    .append("div")
+                    .style("opacity", 0)
+                    .attr("class", "tooltip")
+                    .style("background-color", "white")
+                    .style("border", "solid")
+                    .style("border-width", "2px")
+                    .style("border-radius", "5px")
+                    .style("padding", "5px");
+
+                var mouseover = function(d) {
+                    Tooltip
+                        .style("opacity", 1)
+                    d3.select(this)
+                        .style("stroke", "black")
+                        .style("opacity", 1);
+                }
+
+                var mousemove = function(d) {
+                    Tooltip
+                        .html("<b>Deaths on "+d.date+":</b><br>Black: "+d.black_deaths+"<br>Asian: "+d.asian_deaths+"<br>Latinx: "+d.latinx_deaths+"<br>White: "+d.white_deaths+"<br>Other: "+d.other_deaths)
+                        .style("left", (d3.mouse(this)[0]+70) + "px")
+                        .style("top", (d3.mouse(this)[1]) + "px");
+                }
+
+                var mouseleave = function(d) {
+                    Tooltip
+                        .style("opacity", 0)
+                    d3.select(this)
+                        .style("stroke", "none")
+                        .style("opacity", 1);
+                }
 
             // colored lines
 
@@ -177,41 +211,6 @@
                         .attr("alignment-baseline","middle")
                         .text(function(d) {return d;})
                         .style("font-size", "13px").style("font-family", "tahoma");
-
-            // tooltip
-
-                var Tooltip = d3.select("#linechart")
-                    .append("div")
-                    .style("opacity", 0)
-                    .attr("class", "tooltip")
-                    .style("background-color", "white")
-                    .style("border", "solid")
-                    .style("border-width", "2px")
-                    .style("border-radius", "5px")
-                    .style("padding", "5px");
-
-                var mouseover = function(d) {
-                    Tooltip
-                        .style("opacity", 1)
-                    d3.select(this)
-                        .style("stroke", "black")
-                        .style("opacity", 1);
-                }
-
-                var mousemove = function(d) {
-                    Tooltip
-                        .html("<b>Deaths on "+d.date+":</b><br>Black: "+d.black_deaths+"<br>Asian: "+d.asian_deaths+"<br>Latinx: "+d.latinx_deaths+"<br>White: "+d.white_deaths+"<br>Other: "+d.other_deaths)
-                        .style("left", (d3.mouse(this)[0]+70) + "px")
-                        .style("top", (d3.mouse(this)[1]) + "px");
-                }
-
-                var mouseleave = function(d) {
-                    Tooltip
-                        .style("opacity", 0)
-                    d3.select(this)
-                        .style("stroke", "none")
-                        .style("opacity", 1);
-                }
 
 
             });
