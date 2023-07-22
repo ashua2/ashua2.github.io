@@ -9,7 +9,7 @@
         <h1 style="text-align:center;font-family:tahoma;color:darkslategrey">Data Visualization of COVID-19 in Chicago</h1>
         <p style="font-family:tahoma">testing</p>
 
-        <div id="bars"></div>
+        <div id="linechart"></div>
 
 
 
@@ -21,7 +21,7 @@
             width = 960 - margin.left - margin.right;
             height = 500 - margin.top - margin.bottom; 
 
-            var svg = d3.select("#bars")
+            var svg = d3.select("#linechart")
                     .append("svg")
                         .attr("width", width + margin.left + margin.right)
                         .attr("height", height + margin.top + margin.bottom)
@@ -51,10 +51,6 @@
                     data.cases_60_69 = +data.cases_60_69;
                     data.cases_70_79 = +data.cases_70_79;
                     data.cases_80 = +data.cases_80;
-
-                    if (data.date == '05-02-2020') {
-                        console.log(data.casesTotal);
-                    }
                 });
 
                 
@@ -73,8 +69,17 @@
                     .call(d3.axisLeft(deaths_y_axis));
 
                 d3.select("svg").append("g")
-                    .attr("transform","translate(75," + (height + margin.top + 20.5) + ")")
+                    .attr("transform","translate(75," + (height + margin.top + 20) + ")")
                     .call(d3.axisBottom(dates_x_axis));
+
+                svg.append("path")
+                    .datum(dataset)
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", d3.line()
+                        .x(function(d) { return x(d.date) })
+                        .y(function(d) { return y(d.value) }));
 
                 svg.append('text')
                  .attr('x', width/2)
