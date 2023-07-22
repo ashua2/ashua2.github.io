@@ -154,10 +154,10 @@
 
                 svg.append("circle")
                     .datum(colors)
-                    .attr("cx", 750)
-                    .attr("cy", 130)
+                    .attr("cx", 550)
+                    .attr("cy", function(d,i) {return 130 + i*30;})
                     .attr("r", 5)
-                    .style("fill", function(d,i) {return colors[i];});
+                    .style("fill", function(d,i) {return d;});
                 
                 /* svg.append("text")
                     .data(races).enter()
