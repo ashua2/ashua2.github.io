@@ -54,8 +54,7 @@
                 var dates_x_axis = d3.scaleTime()
                     .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
                     .range([0, width])
-                    .ticks(d3.timeDay)
-                    .tickFormat(function(d) {return d3.timeFormat("%b %e")(d);});
+                    .ticks(d3.timeDay);
 
                 var deaths_y_axis = d3.scaleLinear()
                     .domain([0, 70])
