@@ -32,17 +32,13 @@
 
             d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
                 console.log(dataset);
-                console.log(dataset[0].date);
+                var dates_deaths_race = [];
 
                 dataset.forEach(function(data) {
+                    data.cases_female = +data.cases_female;
                     data.deathsTotal = +data.deathsTotal,
                     data.casesTotal = +data.casesTotal
                     data.hospitalizationsTotal = +data.hospitalizationsTotal;
-                    data.deaths_latinx = +data.deaths_latinx;
-                    data.deaths_asian_nonlat = +data.deaths_asian_nonlat;
-                    data.deaths_black_nonlat = +data.deaths_black_nonlat;
-                    data.deaths_white_nonlat = +data.deaths_white_nonlat;
-                    data.deaths_other_nonlat = +data.deaths_other_nonlat;
                     data.cases_0_17 = +data.cases_0_17;
                     data.cases_18_29 = +data.cases_18_29;
                     data.cases_30_39 = +data.cases_30_39;
@@ -51,9 +47,19 @@
                     data.cases_60_69 = +data.cases_60_69;
                     data.cases_70_79 = +data.cases_70_79;
                     data.cases_80 = +data.cases_80;
+
+                    let race_deaths = {
+                        "date": data.date,
+                        "latinx_deaths": +data.deaths_latinx,
+                        "asian_deaths": +data.deaths_asian_nonlat,
+                        "black_deaths": +data.deaths_black_nonlat,
+                        "white_deaths": +data.deaths_white_nonlat,
+                        "other_deaths": +data.deaths_other_nonlat
+                    }
+                    dates_deaths_race.push(race_deaths);
                 });
 
-                
+                console.log(dates_deaths_race);
                 var dates_x_axis = d3.scaleTime()
                     .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
                     .range([0, width]);
