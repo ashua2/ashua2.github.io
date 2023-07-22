@@ -10,6 +10,7 @@
         <p style="font-family:tahoma">testing</p>
 
         <div id="linechart"></div>
+        <div id="linechartlegend"></div>
 
 
 
@@ -28,12 +29,7 @@
                                 {"color": "mediumaquamarine", "race": "Other"},
                                 {"color": "violet", "race": "White"}];
 
-            var svg = d3.select("#linechart")
-                .append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                    .attr("transform","translate(" + margin.left + "," + margin.top + ")")
+            var legend = d3.select("linechartlegend")
                 .data(legend_codes)
                 .enter()
                 .append("circle")
@@ -43,6 +39,13 @@
                     .attr("x", 730).attr("y", function(d,i) {return 130 + i*30;}).attr("alignment-baseline","middle")
                     .text(function(d) {return d.race;})
                     .style("font-size", "15px").style("font-family", "tahoma");
+
+            var svg = d3.select("#linechart")
+                .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
             // dataset cleaning + storing
 
