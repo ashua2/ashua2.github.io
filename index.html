@@ -22,22 +22,27 @@
             width = 960 - margin.left - margin.right;
             height = 500 - margin.top - margin.bottom; 
 
-            var colors = ["orange", "crimson", "cornflowerblue", "mediumaquamarine", "violet"];
-            var races = ["Black", "Asian", "Latinx", "Other", "White"];
+            var legend_codes = [{"color": "orange", "race": "Black"}, 
+                                {"color": "crimson", "race": "Asian"},
+                                {"color": "cornflowerblue", "race": "Latinx"},
+                                {"color": "mediumaquamarine", "race": "Other"},
+                                {"color": "violet", "race": "White"}];
 
             var svg = d3.select("#linechart")
-                    .append("svg")
-                        .attr("width", width + margin.left + margin.right)
-                        .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                        .attr("transform","translate(" + margin.left + "," + margin.top + ")")
-                    .append("circle")
-                        .attr("cx",725).attr("cy", function(d,i) {return 130 + i*30;}).attr("r", 10)
-                        .style("fill", function(d,i) {return colors[i];})
-                    .append("text")
-                        .attr("x", 730).attr("y", function(d,i) {return 130 + i*30;}).attr("alignment-baseline","middle")
-                        .text(function(d,i) {return races[i];})
-                        .style("font-size", "15px").style("font-family", "tahoma");
+                .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform","translate(" + margin.left + "," + margin.top + ")")
+                .data(legend_codes)
+                .enter()
+                .append("circle")
+                    .attr("cx",725).attr("cy", function(d,i) {return 130 + i*30;}).attr("r", 5)
+                    .style("fill", function(d) {return d.color;})
+                .append("text")
+                    .attr("x", 730).attr("y", function(d,i) {return 130 + i*30;}).attr("alignment-baseline","middle")
+                    .text(function(d) {return d.race;})
+                    .style("font-size", "15px").style("font-family", "tahoma");
 
             // dataset cleaning + storing
 
