@@ -61,9 +61,6 @@
 
                 console.log(dates_deaths_race);
 
-                var dates_x_axis_simplified = d3.scaleLinear()
-                    .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
-                    .range([0, width]);
 
                 var dates_x_axis = d3.scaleTime()
                     .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
@@ -89,7 +86,7 @@
                     .attr("stroke", "steelblue")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return deaths_x_axis(d.date) })
+                        .x(function(d) { return dates_x_axis(d.date) })
                         .y(function(d) { return deaths_y_axis(d.latinx_deaths) }));
 
                 svg.append('text')
