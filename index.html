@@ -153,8 +153,8 @@
                 var colors = ["orange", "violet", "cornflowerblue", "mediumaquamarine", "crimson"];
 
                 svg.append("circle")
-                    .datum(colors).enter()
-                    .attr("cx", 725)
+                    .datum(colors)
+                    .attr("cx", 750)
                     .attr("cy", 130)
                     .attr("r", 5)
                     .style("fill", function(d,i) {return colors[i];});
