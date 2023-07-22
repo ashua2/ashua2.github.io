@@ -101,12 +101,10 @@
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
                         .y(function(d) { return deaths_y_axis(d.asian_deaths) + margin.top*2 }));
 
-                console.log(path.toString());
-
                 svg.append("path")
                     .datum(dates_deaths_race)
                     .attr("fill", "none")
-                    .attr("stroke", "mediumaquamarine")
+                    .attr("stroke", "orange")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
@@ -124,7 +122,7 @@
                 svg.append("path")
                     .datum(dates_deaths_race)
                     .attr("fill", "none")
-                    .attr("stroke", "orange")
+                    .attr("stroke", "mediumaquamarine")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
