@@ -152,12 +152,13 @@
                 var races = ["Black", "Asian", "Latinx", "Other", "White"];
                 var colors = ["orange", "violet", "cornflowerblue", "mediumaquamarine", "crimson"];
 
-                svg.append("circle")
-                    .datum(colors)
-                    .attr("cx", 550)
-                    .attr("cy", function(d,i) {return 130 + i*30;})
-                    .attr("r", 5)
-                    .style("fill", function(d,i) {return d;});
+                svg.selectAll("legenddots")
+                    .data(colors).enter()
+                    .append("circle")
+                        .attr("cx", 550)
+                        .attr("cy", function(d,i) {return 130 + i*30;})
+                        .attr("r", 5)
+                        .style("fill", function(d,i) {return d;});
                 
                 /* svg.append("text")
                     .data(races).enter()
