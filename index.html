@@ -12,8 +12,10 @@
         <script>
             var width = 700;
             var height = 700;
+            var margin = 50;
             async function getData() {
                 var data = await d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv");
+
 
                 var dates_x_axis = d3.scaleTime()
                     .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
@@ -25,6 +27,29 @@
 
                 var colors_race = ["cornflowerblue", "lightpink", "mediumaquamarine", "sienna", "navajowhite"];
                 
+                d3.select("svg").append("g")
+                    .attr("transform","translate(50,50)")
+                    .call(d3.axisLeft(deaths_y_axis));
+
+                d3.select("svg").append("g")
+                    .attr("transform","translate(50,250)")
+                    .call(d3.axisBottom(dates_x_axis));
+
+                svg.append('text')
+                    .attr('x', width / 2)
+                    .attr('y', height + 30)
+                    .attr('text-anchor', 'middle')
+                    .style('font-family', 'Helvetica')
+                    .style('font-size', 12)
+                    .text('Year');
+                        
+                svg.append('text')
+                    .attr('text-anchor', 'middle')
+                    .attr('transform', 'translate(-30,' + height / 2 + ')rotate(-90)')
+                    .style('font-family', 'Helvetica')
+                    .style('font-size', 12)
+                    .text('Deaths');
+
             }
 
             
