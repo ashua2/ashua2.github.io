@@ -28,10 +28,13 @@
                     .append("g")
                         .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
+            var parseTime = d3.timeParse("%m-%d%-%Y");
+
             d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
                 console.log(dataset);
 
                 dataset.forEach(function(data) {
+                    data.date = parseTime(data.date);
                     data.deathsTotal = +data.deathsTotal,
                     data.casesTotal = +data.casesTotal
                     data.hospitalizationsTotal = +data.hospitalizationsTotal;
@@ -66,12 +69,12 @@
                     .call(d3.axisLeft(deaths_y_axis));
 
                 d3.select("svg").append("g")
-                    .attr("transform","translate(50," + (height + margin.top + (margin.bottom/2)) + ")")
+                    .attr("transform","translate(75," + (height + margin.top + 40) + ")")
                     .call(d3.axisBottom(dates_x_axis));
 
                 svg.append('text')
                  .attr('x', width/2)
-                 .attr('y', height + 50)
+                 .attr('y', height + 75)
                  .attr('text-anchor', 'middle')
                  .style('font-family', 'tahoma')
                  .style('font-size', 15)
@@ -79,7 +82,7 @@
 
                 svg.append('text')
                  .attr('text-anchor', 'middle')
-                 .attr('transform', 'translate(-50,' + height/2 + ')rotate(-90)')
+                 .attr('transform', 'translate(-100,' + height/2 + ')rotate(-90)')
                  .style('font-family', 'tahoma')
                  .style('font-size', 15)
                  .text('Deaths');
