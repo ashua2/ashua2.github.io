@@ -5,6 +5,12 @@
     </head>
     <script src="https://d3js.org/d3.v6.min.js"></script>
 
+    <style>
+        .lighter {
+            font-weight: 100;
+        }
+      </style>
+
     <body>
         <h1 style="text-align:center;font-family:tahoma;color:darkslategray">Data Visualization of COVID-19 in Chicago</h1>
         <p style="font-family:tahoma">testing</p>
@@ -215,15 +221,15 @@
                     .data(dates_deaths_race).enter().append("text")
                         .attr("x", 120)
                         .attr("y", 30)
-                        .html("Black deaths were at an all-time high on "+formatTime(dates_deaths_race[52].date)+",<br> with a total of "+dates_deaths_race[52].black_deaths+" deaths.")
-                        .style("font-size", "10px").style("font-family", "tahoma").style("stroke", "darkorange");
+                        .html("Black deaths were at an all-time high on "+formatTime(dates_deaths_race[52].date)+", with a total of "+dates_deaths_race[52].black_deaths+" deaths.")
+                        .style("font-size", "10px").style("font-family", "tahoma").style("stroke", "darkorange").style("font-weight", 100);
 
 
                 svg.append('line')
                     .style("stroke", "darkorange")
                     .style("stroke-width", 1)
                     .attr("x1", 100)
-                    .attr("y1", 50)
+                    .attr("y1", 55)
                     .attr("x2", 117)
                     .attr("y2", 30);
 
