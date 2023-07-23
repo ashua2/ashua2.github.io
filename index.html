@@ -40,12 +40,13 @@
             var parseTime = d3.timeParse('%m-%d%-%Y');
             var races = ["Black", "Asian", "Latinx", "White", "Other"];
             var colors = ["orange", "violet", "cornflowerblue", "crimson", "mediumaquamarine"];
+        
+        async function getData() {
+            var dataset = await d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv");
+            console.log(dataset);
+            var dates_deaths_race = [];
 
-            d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
-                console.log(dataset);
-                var dates_deaths_race = [];
-
-                dataset.forEach(function(data) {
+            dataset.forEach(function(data) {
                     data.cases_female = +data.cases_female;
                     data.deathsTotal = +data.deathsTotal,
                     data.casesTotal = +data.casesTotal
@@ -71,7 +72,7 @@
                         dates_deaths_race.push(race_deaths);
                     }
                     
-                });
+            });
 
                 dates_deaths_race.sort(function(o1,o2){
                     return o1.date - o2.date;
@@ -227,7 +228,7 @@
                 d3.select("#linechart")
                     .append("g")
                     .call(makeAnnotations);
-            });
+            }
         </script>
     </body>
 </html>
