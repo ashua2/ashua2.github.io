@@ -100,40 +100,25 @@
 
             // tooltip
 
-                /* var Tooltip = d3.select("#linechart")
-                    .append("div")
-                    .style("opacity", 0)
-                    .attr("class", "tooltip")
-                    .style("background-color", "white")
-                    .style("border", "solid")
-                    .style("border-width", "2px")
-                    .style("border-radius", "5px")
-                    .style("padding", "5px");
+                var tooltip = d3.select('tooltip_area')
+                    .style('opacity', 0);
 
-                var mouseover = function(d) {
-                    Tooltip
-                        .style("opacity", 1)
-                    d3.select(this)
-                        .style("stroke", "black")
-                        .style("opacity", 1);
+                const mouseover = (event, d) => {
+                    tooltip.style("opacity", 1);
+                };
+
+                const mouseleave = (event, d) => {
+                    // tooltip.style('opacity', 0);
                 }
 
-                var mousemove = function(event, d) {
-                    Tooltip
-                        .html("<b>Deaths on "+d.date+":</b><br>Black: "+d.black_deaths+"<br>Asian: "+d.asian_deaths+"<br>Latinx: "+d.latinx_deaths+"<br>White: "+d.white_deaths+"<br>Other: "+d.other_deaths)
-                        .style("left", (event.x + 70) + "px")
-                        .style("top", (event.y - 30) + "px");
-                    console.log(event.x);
-                    console.log(event.y)
-                }
+                const mousemove = (event, d) => {
+                    const text = d3.select('tooltip_area_text');
+                    text.text(`Date: ${d.date}, Latinx deaths: ${d.latinx_deaths}`);
+                    const [x, y] = d3.pointer(event);
 
-                var mouseleave = function(d) {
-                    Tooltip
-                        .style("opacity", 1)
-                    d3.select(this)
-                        .style("stroke", "none")
-                        .style("opacity", 1);
-                } */
+                    tooltip
+                        .attr('transform', `translate(${x}, ${y})`);
+                };
 
             // colored lines
 
@@ -196,6 +181,18 @@
                     /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
                     .on("mouseleave", mouseleave); */
+            
+
+                svg.append("line")
+                    .attr("x1", function(event, d) { return d3.pointer(event)[0]; })
+                    .attr("y1", 0)
+                    .attr("x2", function(event, d) { return d3.pointer(event)[0]; })
+                    .attr("y2", height - margin.top - margin.bottom)
+                    .style("stroke-width", 2)
+                    .style("stroke-dasharray", ("3, 3"))
+                    .style("stroke", "salmon")
+                    .style("fill", "none")
+
 
             // legend
 
