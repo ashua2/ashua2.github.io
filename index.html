@@ -3,8 +3,8 @@
     <head>
         <title>Data Visualization of COVID-19 in Chicago</title>
     </head>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js" integrity="sha512-iBAeBWWWFb8HqSBcrqcz98iIpuVH1la39dEYHtyQ/pGpeCQTQVvLJOWAuhv2Q7JSHp9k7hWA7sGxU3hHJe+tFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
     <body>
         <h1 style="text-align:center;font-family:tahoma;color:darkslategray">Data Visualization of COVID-19 in Chicago</h1>
         <p style="font-family:tahoma">testing</p>
@@ -40,13 +40,12 @@
             var parseTime = d3.timeParse('%m-%d%-%Y');
             var races = ["Black", "Asian", "Latinx", "White", "Other"];
             var colors = ["orange", "violet", "cornflowerblue", "crimson", "mediumaquamarine"];
-        
-        async function getData() {
-            var dataset = await d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv");
-            console.log(dataset);
-            var dates_deaths_race = [];
 
-            dataset.forEach(function(data) {
+            d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
+                console.log(dataset);
+                var dates_deaths_race = [];
+
+                dataset.forEach(function(data) {
                     data.cases_female = +data.cases_female;
                     data.deathsTotal = +data.deathsTotal,
                     data.casesTotal = +data.casesTotal
@@ -72,7 +71,7 @@
                         dates_deaths_race.push(race_deaths);
                     }
                     
-            });
+                });
 
                 dates_deaths_race.sort(function(o1,o2){
                     return o1.date - o2.date;
@@ -211,24 +210,15 @@
 
             // annotations
 
-                const annotations = [
-                    {
-                            note: {
-                            label: "Here is the annotation label",
-                            title: "Annotation title"
-                        },
-                            x: 100,
-                            y: 100,
-                            dy: 100,
-                            dx: 100
-                    }
-                ];
-                const makeAnnotations = d3.annotation()
-                    .annotations(annotations)
-                d3.select("#linechart")
-                    .append("g")
-                    .call(makeAnnotations);
-            }
+                svg.selectAll("annotations")
+                    .data(dates_deaths_race).enter().append("text")
+                        .attr("x", 250)
+                        .attr("y", 200)
+                        .text(function(d) {return ("latinx deaths:"+d.latinx_deaths);})
+                        .style("font-size", "13px").style("font-family", "tahoma");
+
+
+            });
         </script>
     </body>
 </html>
