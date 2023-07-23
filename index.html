@@ -100,7 +100,7 @@
 
             // tooltip
 
-                var Tooltip = d3.select("#linechart")
+                /* var Tooltip = d3.select("#linechart")
                     .append("div")
                     .style("opacity", 0)
                     .attr("class", "tooltip")
@@ -133,7 +133,7 @@
                     d3.select(this)
                         .style("stroke", "none")
                         .style("opacity", 1);
-                }
+                } */
 
             // colored lines
 
@@ -144,10 +144,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.latinx_deaths) + margin.top*2 }))
-                    .on("mouseover", mouseover)
+                        .y(function(d) { return deaths_y_axis(d.latinx_deaths) + margin.top*2 }));
+                    /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
-                    .on("mouseleave", mouseleave);
+                    .on("mouseleave", mouseleave); */
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -156,10 +156,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.asian_deaths) + margin.top*2 }))
-                    .on("mouseover", mouseover)
+                        .y(function(d) { return deaths_y_axis(d.asian_deaths) + margin.top*2 }));
+                    /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
-                    .on("mouseleave", mouseleave);
+                    .on("mouseleave", mouseleave); */
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -168,10 +168,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.black_deaths) + margin.top*2 }))
-                    .on("mouseover", mouseover)
+                        .y(function(d) { return deaths_y_axis(d.black_deaths) + margin.top*2 }));
+                    /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
-                    .on("mouseleave", mouseleave);
+                    .on("mouseleave", mouseleave); */
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -180,10 +180,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.white_deaths) + margin.top*2 }))
-                    .on("mouseover", mouseover)
+                        .y(function(d) { return deaths_y_axis(d.white_deaths) + margin.top*2 }));
+                    /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
-                    .on("mouseleave", mouseleave);
+                    .on("mouseleave", mouseleave); */
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -192,10 +192,10 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.other_deaths) + margin.top*2 }))
-                    .on("mouseover", mouseover)
+                        .y(function(d) { return deaths_y_axis(d.other_deaths) + margin.top*2 }));
+                    /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
-                    .on("mouseleave", mouseleave);
+                    .on("mouseleave", mouseleave); */
 
             // legend
 
