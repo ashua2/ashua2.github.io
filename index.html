@@ -117,8 +117,16 @@
 
             // tooltip (her ass is not working :D)
 
-                /* var tooltip = d3.select('tooltip_area')
-                    .style('opacity', 0);
+                /*var tooltip = svg.append("div")
+                    .style("position", "absolute")
+                    .style("visibility", "hidden")
+                    .style("color", "white")
+                    .style("background-color", "rebeccapurple")
+                    .style("border-radius", 4)
+                    .style("font-family", "tahoma")
+                    .style("font-size", 10)
+                    .style("padding", 5)
+                    .text("");
 
                 const mouseover = (event, d) => {
                     tooltip.style("opacity", 1);
@@ -238,9 +246,9 @@
                     .html("Latinx deaths were at an all-time high on "+formatTime(dates_deaths_race[65].date)+", with a total of "+dates_deaths_race[65].latinx_deaths+" deaths.")
                     .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100);
                 svg.append("text")
-                    .attr("x", 170)
-                    .attr("y", 65)
-                    .html("This point also begins the trend of Latinx deaths generally being the highest out of all ethnicities.")
+                    .attr("x", 160)
+                    .attr("y", 67)
+                    .html("This point begins the trend of Latinx deaths generally being the highest of all ethnicities.")
                     .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100);
 
                 svg.append('line')
@@ -264,7 +272,11 @@
                     .attr("x1", 531)
                     .attr("y1", 303)
                     .attr("x2", 450)
-                    .attr("y2", 200);
+                    .attr("y2", 200)
+                    .on("mousemove", function(event, d) {
+
+
+                    });
                 svg.append('line')
                     .style("stroke", "maroon")
                     .style("stroke-width", 1)
