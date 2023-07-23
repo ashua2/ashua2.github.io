@@ -9,9 +9,9 @@
         <h1 style="text-align:center;font-family:tahoma;color:darkslategray">Data Visualization of COVID-19 in Chicago</h1>
         <p style="font-family:tahoma">testing</p>
 
+        <select id="dropdown"></select>
         <div id="linechart"></div>
-
-
+            
         <script>
             // svg
             var margin = {top: 10, right: 40, bottom: 100, left: 100};
@@ -19,12 +19,21 @@
             width = 960 - margin.left - margin.right;
             height = 500 - margin.top - margin.bottom; 
 
+            var factors = ["Deaths by Ethnicity", "Cases by Ethnicity", "Deaths by Gender", "Deaths by Age", "Cases by Age"];
+
             var svg = d3.select("#linechart")
                 .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
                 .append("g")
                     .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+            // dropdown menu
+
+            d3.select("#dropdown")
+                .selectAll("alloptions").data(factors).enter().append("option")
+                .text(function (d) {return d;})
+                .attr("value", function (d) {return d;});
 
             // dataset cleaning + storing
 
@@ -98,7 +107,7 @@
                     .style('font-family', 'tahoma').style('font-size', 15)
                     .text('Deaths');
 
-            // tooltip
+            // tooltip (her ass is not working :D)
 
                 /* var tooltip = d3.select('tooltip_area')
                     .style('opacity', 0);
