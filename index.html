@@ -237,15 +237,15 @@
                     .data(dates_deaths_race).enter().append("text")
                         .attr("x", 170)
                         .attr("y", 55)
-                        .html("Latinx deaths were at an all-time high on "+formatTime(dates_deaths_race[65].date)+", with a total of "+dates_deaths_race[65].latinx_deaths+" deaths.")
+                        .html(<p>"Latinx deaths were at an all-time high on "+formatTime(dates_deaths_race[65].date)+", with a total of "+dates_deaths_race[65].latinx_deaths+" deaths."</p>)
                         .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100);
 
 
                 svg.append('line')
                     .style("stroke", "royalblue")
                     .style("stroke-width", 1)
-                    .attr("x1", 150)
-                    .attr("y1", 55)
+                    .attr("x1", 130)
+                    .attr("y1", 65)
                     .attr("x2", 157)
                     .attr("y2", 55);
 
