@@ -208,7 +208,25 @@
                         .text(function(d) {return d;})
                         .style("font-size", "13px").style("font-family", "tahoma");
 
+            // annotations
 
+                const annotations = [
+                    {
+                            note: {
+                            label: "Here is the annotation label",
+                            title: "Annotation title"
+                        },
+                            x: 100,
+                            y: 100,
+                            dy: 100,
+                            dx: 100
+                    }
+                ];
+                const makeAnnotations = d3.annotation()
+                    .annotations(annotations)
+                d3.select("#linechart")
+                    .append("g")
+                    .call(makeAnnotations);
             });
         </script>
     </body>
