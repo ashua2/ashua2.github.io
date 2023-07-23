@@ -39,7 +39,8 @@
             d3.select("#dropdown")
                 .selectAll("alloptions").data(factors).enter().append("option")
                 .text(function (d) {return d;})
-                .attr("value", function (d) {return d;});
+                .attr("value", function (d) {return d;})
+                .style("font-family", "tahoma");
 
             // dataset cleaning + storing
 
@@ -216,15 +217,13 @@
                         .style("font-size", "13px").style("font-family", "tahoma");
 
             // annotations
-
+                //black deaths annotation
                 svg.selectAll("annotations")
                     .data(dates_deaths_race).enter().append("text")
                         .attr("x", 120)
                         .attr("y", 30)
                         .html("Black deaths were at an all-time high on "+formatTime(dates_deaths_race[52].date)+", with a total of "+dates_deaths_race[52].black_deaths+" deaths.")
                         .style("font-size", "10px").style("font-family", "verdana").style("stroke", "darkorange").style("letter-spacing", 1.5);
-
-
                 svg.append('line')
                     .style("stroke", "darkorange")
                     .style("stroke-width", 1)
@@ -233,21 +232,48 @@
                     .attr("x2", 117)
                     .attr("y2", 30);
 
+                //latinx deaths annotation
                 svg.selectAll("annotations")
-                    .data(dates_deaths_race).enter().append("text")
+                    .append("text")
                         .attr("x", 170)
                         .attr("y", 55)
                         .html("Latinx deaths were at an all-time high on "+formatTime(dates_deaths_race[65].date)+", with a total of "+dates_deaths_race[65].latinx_deaths+" deaths.")
-                        .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100);
-
-
+                        .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100)
+                    .append("text")
+                        .attr("x", 170)
+                        .attr("y", 65)
+                        .html("This point also begins the trend of Latinx deaths generally being the highest out of all ethnicities.");
                 svg.append('line')
                     .style("stroke", "royalblue")
                     .style("stroke-width", 1)
-                    .attr("x1", 130)
+                    .attr("x1", 135)
                     .attr("y1", 65)
                     .attr("x2", 167)
                     .attr("y2", 55);
+
+                //white deaths annotation
+                svg.selectAll("annotations")
+                    .data(dates_deaths_race).enter().append("text")
+                        .attr("x", 250)
+                        .attr("y", 200)
+                        .html("Some of the few times when white deaths exceeded all other ethnicities.")
+                        .style("font-size", "10px").style("font-family", "verdana").style("stroke", "maroon").style("letter-spacing", 1.5).style("font-weight", 100);
+
+
+                svg.append('line')
+                    .style("stroke", "maroon")
+                    .style("stroke-width", 1)
+                    .attr("x1", 600)
+                    .attr("y1", 300)
+                    .attr("x2", 550)
+                    .attr("y2", 200);
+                svg.append('line')
+                    .style("stroke", "maroon")
+                    .style("stroke-width", 1)
+                    .attr("x1", 570)
+                    .attr("y1", 350)
+                    .attr("x2", 550)
+                    .attr("y2", 200);
 
 
             });
