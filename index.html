@@ -212,10 +212,19 @@
 
                 svg.selectAll("annotations")
                     .data(dates_deaths_race).enter().append("text")
-                        .attr("x", 250)
-                        .attr("y", 200)
-                        .text(function(d) {return ("latinx deaths:"+d.latinx_deaths);})
-                        .style("font-size", "13px").style("font-family", "tahoma");
+                        .attr("x", 220)
+                        .attr("y", 20)
+                        .text("Black deaths:"+dates_deaths_race[52].black_deaths)
+                        .style("font-size", "13px").style("font-family", "tahoma").style("stroke", "sienna");
+
+
+                svg.append('line')
+                    .style("stroke", "sienna")
+                    .style("stroke-width", 10)
+                    .attr("x1", 205)
+                    .attr("y1", 30)
+                    .attr("x2", 217)
+                    .attr("y2", 20);
 
 
             });
