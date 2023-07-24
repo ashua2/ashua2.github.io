@@ -36,28 +36,28 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             var colors = ["orange", "violet", "cornflowerblue", "crimson", "mediumaquamarine"];
             var attributes = ["latinx_deaths", "asian_deaths", "black_deaths", "white_deaths", "other_deaths"];
 
-            dataset.forEach(function(data) {
-                let race_deaths = {
-                    "date": new Date(+(data.date.slice(6)), +(data.date.slice(0,2) - 1), +(data.date.slice(3,5))),
-                    "latinx_deaths": +data.deaths_latinx,
-                    "asian_deaths": +data.deaths_asian_nonlat,
-                    "black_deaths": +data.deaths_black_nonlat,
-                    "white_deaths": +data.deaths_white_nonlat,
-                    "other_deaths": +data.deaths_other_nonlat
-                }
-                if (race_deaths.date <= new Date(2021, 2, 1) && race_deaths.date >= new Date(2020, 2, 1)) {
-                dates_deaths_race.push(race_deaths);
-                }
-            });
+            for (let i = 0; i < 5; i++) {
+                dataset.forEach(function(data) {
+                    let race_deaths = {
+                        "date": new Date(+(data.date.slice(6)), +(data.date.slice(0,2) - 1), +(data.date.slice(3,5))),
+                        "latinx_deaths": +data.deaths_latinx,
+                        "asian_deaths": +data.deaths_asian_nonlat,
+                        "black_deaths": +data.deaths_black_nonlat,
+                        "white_deaths": +data.deaths_white_nonlat,
+                        "other_deaths": +data.deaths_other_nonlat
+                    }
+                    if (race_deaths.date <= new Date(2021, 2, 1) && race_deaths.date >= new Date(2020, 2, 1)) {
+                        dates_deaths_race.push(race_deaths);
+                    }
+                });
+            }
+
             dates_deaths_race.sort(function(o1,o2){
                 return o1.date - o2.date;
             });
-            final_deaths_race = [];
-            for (let i = 0; i < 5; i++) {
-                final_deaths_race.push(dates_deaths_race);
-            }
 
-            console.log(final_deaths_race);
+
+            console.log(dates_deaths_race);
 
         // axes + labels
             var dates_x_axis = d3.scaleTime()
