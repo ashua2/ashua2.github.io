@@ -142,11 +142,11 @@
                     .range([height, 0]);
                 
                 svg.append("g")
-                    .attr("transform","translate(0,"+margin.top+")")
+                    //.attr("transform","translate(0,"+margin.top+")")
                     .call(d3.axisLeft(deaths_y_axis));
 
                 svg.append("g")
-                    .attr("transform","translate(0,20)")
+                    .attr("transform","translate(0,"+height+")")
                     .call(d3.axisBottom(dates_x_axis));
                 
                 svg.append('text')
@@ -198,7 +198,7 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date); })
-                        .y(function(d) { return deaths_y_axis(d.latinx_deaths) + 20; }));
+                        .y(function(d) { return deaths_y_axis(d.latinx_deaths); }));
                     /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
                     .on("mouseleave", mouseleave); */
