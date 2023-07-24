@@ -89,7 +89,10 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.append("path")
                 .datum(dates_deaths_race)
                 .attr("fill", "none")
-                .attr("stroke", function(d, i) { return colors[i % 5]})
+                .attr("stroke", function(d, i) {
+                    console.log(colors[i % 5]);
+                    return colors[i % 5];
+                })
                 .attr("stroke-width", 1.5)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
