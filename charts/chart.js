@@ -52,7 +52,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             dates_deaths_race.sort(function(o1,o2){
                 return o1.date - o2.date;
             });
-            final_deaths_race = dates_deaths_race;
+            final_deaths_race = [];
             for (let i = 0; i < 5; i++) {
                 final_deaths_race.push(dates_deaths_race);
             }
@@ -204,13 +204,13 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .attr("x2", 450)
                 .attr("y2", 185);
         } else if (selectedGroup == factors[1]) {
-            // chart #2
+
         } else if (selectedGroup == factors[2]) {
-            // chart #3
+
         } else if (selectedGroup == factors[3]) {
-            // chart #4
+
         } else {
-            // remember to use svg.append(...) NOT d3.select("svg") :)
+
         }
     }
 
