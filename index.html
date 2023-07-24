@@ -53,6 +53,7 @@
                 console.log(dataset);
 
                 function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
+                    d3.select("svg").selectAll("*").remove();
                     if (selectedGroup == factors[0]) {
                         svg.append("circle")
                             .attr("cx", 100)
@@ -60,28 +61,24 @@
                             .attr("r", 10)
                             .attr("fill", "pink");
                     } else if (selectedGroup == factors[1]) {
-                        d3.select("svg").selectAll("*").remove();
-                        svg.append("circle")
+                        d3.select("svg").append("circle")
                             .attr("cx", 200)
                             .attr("cy", 150)
                             .attr("r", 10)
                             .attr("fill", "peru");
                     } else if (selectedGroup == factors[2]) {
-                        svg.selectAll("*").remove();
                         svg.append("circle")
                             .attr("cx", 300)
                             .attr("cy", 200)
                             .attr("r", 10)
                             .attr("fill", "plum");
                     } else if (selectedGroup == factors[3]) {
-                        d3.select("#chartarea").html = "";
                         svg.append("circle")
                             .attr("cx", 400)
                             .attr("cy", 250)
                             .attr("r", 10)
                             .attr("fill", "powderblue");
                     } else {
-                        svg.selectAll().remove();
                         svg.append("circle")
                             .attr("cx", 450)
                             .attr("cy", 270)
