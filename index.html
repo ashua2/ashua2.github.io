@@ -142,11 +142,11 @@
                     .range([height, 0]);
                 
                 svg.append("g")
-                    .attr("transform","translate(0,"+(height - margin.left - margin.right)+")")
+                    .attr("transform","translate(0,"+margin.top+")")
                     .call(d3.axisLeft(deaths_y_axis));
 
                 svg.append("g")
-                    .attr("transform","translate(0"+(height + margin.top)+")")
+                    .attr("transform","translate(0,20)")
                     .call(d3.axisBottom(dates_x_axis));
                 
                 svg.append('text')
@@ -198,7 +198,7 @@
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date); })
-                        .y(function(d) { return deaths_y_axis(d.latinx_deaths) + margin.top; }));
+                        .y(function(d) { return deaths_y_axis(d.latinx_deaths) + 20; }));
                     /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
                     .on("mouseleave", mouseleave); */
@@ -209,8 +209,8 @@
                     .attr("stroke", "violet")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
-                        .y(function(d) { return deaths_y_axis(d.asian_deaths) + margin.top*2 }));
+                        .x(function(d) { return dates_x_axis(d.date) - 20; })
+                        .y(function(d) { return deaths_y_axis(d.asian_deaths) + 20; }));
                     /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
                     .on("mouseleave", mouseleave); */
@@ -221,7 +221,7 @@
                     .attr("stroke", "orange")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
+                        .x(function(d) { return dates_x_axis(d.date) - 20 })
                         .y(function(d) { return deaths_y_axis(d.black_deaths) + margin.top*2 }));
                     /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
@@ -233,7 +233,7 @@
                     .attr("stroke", "crimson")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
+                        .x(function(d) { return dates_x_axis(d.date) - 20 })
                         .y(function(d) { return deaths_y_axis(d.white_deaths) + margin.top*2 }));
                     /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
@@ -245,7 +245,7 @@
                     .attr("stroke", "mediumaquamarine")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return dates_x_axis(d.date) - margin.right/2 })
+                        .x(function(d) { return dates_x_axis(d.date) - 20 })
                         .y(function(d) { return deaths_y_axis(d.other_deaths) + margin.top*2 }));
                     /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
