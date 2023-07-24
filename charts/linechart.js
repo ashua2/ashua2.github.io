@@ -1,4 +1,4 @@
-
+function makeLineChartbyEthnicity() {
 /* // svg
 var margin = {top: 25, right: 40, bottom: 70, left: 70};
 
@@ -258,3 +258,4 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
         .attr("y1", 355)
         .attr("x2", 450)
         .attr("y2", 185);
+}

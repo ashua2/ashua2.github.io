@@ -17,6 +17,7 @@
 
         <select id="dropdown"></select>
         <div id="chartarea"></div>
+        <script type="text/javascript" src="charts/linechart.js"></script>
 
         <script>
             // svg
@@ -65,7 +66,7 @@
                             .attr("r", 10)
                             .attr("fill", "peru");
                     } else if (selectedGroup == factors[2]) {
-                        </script><script type="text/javascript" src="charts/linechart.js"></script><script>
+                        makeLineChartbyEthnicity();
                     } else if (selectedGroup == factors[3]) {
                         svg.append("circle")
                             .attr("cx", 400)
@@ -91,5 +92,6 @@
                 })
             });
         </script>
+        
     </body>
 </html>
