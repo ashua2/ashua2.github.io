@@ -150,12 +150,12 @@
                     .call(d3.axisBottom(dates_x_axis));
                 
                 svg.append('text')
-                    .attr('x', width/2).attr('y', height + margin.top).attr('text-anchor', 'middle')
+                    .attr('x', width/2).attr('y', height + 40).attr('text-anchor', 'middle')
                     .style('font-family', 'tahoma').style('font-size', 15)
                     .text('Month');
 
                 svg.append('text')
-                    .attr('text-anchor', 'middle').attr('transform', 'translate(-25,' + height/2 + ')rotate(-90)')
+                    .attr('text-anchor', 'middle').attr('transform', 'translate(-35,' + height/2 + ')rotate(-90)')
                     .style('font-family', 'tahoma').style('font-size', 15)
                     .text('Deaths');
 
