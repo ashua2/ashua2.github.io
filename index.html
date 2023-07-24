@@ -52,6 +52,7 @@
                 console.log(dataset);
 
                 function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
+                    // </script><script type="text/javascript" src="charts/linechart.js"></script><script>
                     svg.selectAll("*").remove();
                     if (selectedGroup == factors[0]) {
                         svg.append("circle")
@@ -66,7 +67,7 @@
                             .attr("r", 10)
                             .attr("fill", "peru");
                     } else if (selectedGroup == factors[2]) {
-                        makeLineChartbyEthnicity();
+                        makeLineChartbyEthnicity(svg, dataset);
                     } else if (selectedGroup == factors[3]) {
                         svg.append("circle")
                             .attr("cx", 400)
