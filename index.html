@@ -54,7 +54,6 @@
 
                 function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
                     if (selectedGroup == factors[0]) {
-                        d3.select("svg").selectAll("*").remove();
                         svg.append("circle")
                             .attr("cx", 100)
                             .attr("cy", 100)
@@ -62,7 +61,7 @@
                             .attr("fill", "pink");
                     } else if (selectedGroup == factors[1]) {
                         d3.select("svg").selectAll("*").remove();
-                        d3.select("svg").append("circle")
+                        svg.append("circle")
                             .attr("cx", 200)
                             .attr("cy", 150)
                             .attr("r", 10)
@@ -145,11 +144,11 @@
                     .domain([0, 30])
                     .range([height, 0]);
                 
-                svg.append("g")
+                d3.select("svg").append("g")
                     .attr("transform","translate(75,30)")
                     .call(d3.axisLeft(deaths_y_axis));
 
-                svg.append("g")
+                d3.select("svg").append("g")
                     .attr("transform","translate(75," + (height + margin.top + 20) + ")")
                     .call(d3.axisBottom(dates_x_axis));
                 
