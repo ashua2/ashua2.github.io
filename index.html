@@ -53,19 +53,44 @@
                 console.log(dataset);
 
                 function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
-                    console.log(selectedGroup);
+                    if (selectedGroup == factors[0]) {
+                        svg.append("circle")
+                            .attr("cx", 100)
+                            .attr("cy", 100)
+                            .attr("r", 10)
+                            .attr("fill", "pink");
+                    } else if (selectedGroup == factors[1]) {
+                        svg.append("circle")
+                            .attr("cx", 100)
+                            .attr("cy", 100)
+                            .attr("r", 10)
+                            .attr("fill", "peru");
+                    } else if (selectedGroup == factors[2]) {
+                        svg.append("circle")
+                            .attr("cx", 100)
+                            .attr("cy", 100)
+                            .attr("r", 10)
+                            .attr("fill", "plum");
+                    } else if (selectedGroup == factors[3]) {
+                        svg.append("circle")
+                            .attr("cx", 100)
+                            .attr("cy", 100)
+                            .attr("r", 10)
+                            .attr("fill", "powderblue");
+                    } else {
+                        svg.selectAll("*").remove();
+                    }
                 }
 
                 d3.select("#dropdown").on("change", function(d) {
                     // recover the option that has been chosen
-                    //var selectedOption = d3.select(this).property("value");
+                    var selectedOption = d3.select(this).property("value");
                     // run the updateChart function with this selected option
-                    // updateChart(selectedOption);
-                    console.log(d3.select(this).property("value"));
+                    updateChart(selectedOption);
+                    // console.log(d3.select(this).property("value"));
 
                 })
 
-                // updateChart()
                 var dates_deaths_race = [];
 
                 dataset.forEach(function(data) {
