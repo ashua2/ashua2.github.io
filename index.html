@@ -20,7 +20,7 @@
             
         <script>
             // svg
-            var margin = {top: 10, right: 40, bottom: 100, left: 100};
+            var margin = {top: 25, right: 40, bottom: 100, left: 80};
 
             width = 960 - margin.left - margin.right;
             height = 500 - margin.top - margin.bottom; 
@@ -159,36 +159,6 @@
                     .style('font-family', 'tahoma').style('font-size', 15)
                     .text('Deaths');
 
-            // tooltip (her ass is not working :D)
-
-                /*var tooltip = svg.append("div")
-                    .style("position", "absolute")
-                    .style("visibility", "hidden")
-                    .style("color", "white")
-                    .style("background-color", "rebeccapurple")
-                    .style("border-radius", 4)
-                    .style("font-family", "tahoma")
-                    .style("font-size", 10)
-                    .style("padding", 5)
-                    .text("");
-
-                const mouseover = (event, d) => {
-                    tooltip.style("opacity", 1);
-                };
-
-                const mouseleave = (event, d) => {
-                    // tooltip.style('opacity', 0);
-                }
-
-                const mousemove = (event, d) => {
-                    const text = d3.select('tooltip_area_text');
-                    text.text(`Date: ${d.date}, Latinx deaths: ${d.latinx_deaths}`);
-                    const [x, y] = d3.pointer(event);
-
-                    tooltip
-                        .attr('transform', `translate(${x}, ${y})`);
-                };
- */
             // colored lines
 
                 svg.append("path")
@@ -199,9 +169,6 @@
                     .attr("d", d3.line()
                         .x(function(d) { return dates_x_axis(d.date); })
                         .y(function(d) { return deaths_y_axis(d.latinx_deaths); }));
-                    /* .on("mouseover", mouseover)
-                    .on("mousemove", mousemove)
-                    .on("mouseleave", mouseleave); */
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -209,11 +176,8 @@
                     .attr("stroke", "violet")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return dates_x_axis(d.date) - 20; })
-                        .y(function(d) { return deaths_y_axis(d.asian_deaths) + 20; }));
-                    /* .on("mouseover", mouseover)
-                    .on("mousemove", mousemove)
-                    .on("mouseleave", mouseleave); */
+                        .x(function(d) { return dates_x_axis(d.date); })
+                        .y(function(d) { return deaths_y_axis(d.asian_deaths); }));
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -221,11 +185,8 @@
                     .attr("stroke", "orange")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return dates_x_axis(d.date) - 20 })
-                        .y(function(d) { return deaths_y_axis(d.black_deaths) + margin.top*2 }));
-                    /* .on("mouseover", mouseover)
-                    .on("mousemove", mousemove)
-                    .on("mouseleave", mouseleave); */
+                        .x(function(d) { return dates_x_axis(d.date); })
+                        .y(function(d) { return deaths_y_axis(d.black_deaths); }));
 
                 svg.append("path")
                     .datum(dates_deaths_race)
@@ -233,8 +194,8 @@
                     .attr("stroke", "crimson")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return dates_x_axis(d.date) - 20 })
-                        .y(function(d) { return deaths_y_axis(d.white_deaths) + margin.top*2 }));
+                        .x(function(d) { return dates_x_axis(d.date); })
+                        .y(function(d) { return deaths_y_axis(d.white_deaths); }));
                     /* .on("mouseover", mouseover)
                     .on("mousemove", mousemove)
                     .on("mouseleave", mouseleave); */
@@ -245,11 +206,8 @@
                     .attr("stroke", "mediumaquamarine")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
-                        .x(function(d) { return dates_x_axis(d.date) - 20 })
-                        .y(function(d) { return deaths_y_axis(d.other_deaths) + margin.top*2 }));
-                    /* .on("mouseover", mouseover)
-                    .on("mousemove", mousemove)
-                    .on("mouseleave", mouseleave); */
+                        .x(function(d) { return dates_x_axis(d.date); })
+                        .y(function(d) { return deaths_y_axis(d.other_deaths); }));
 
             // legend
                 svg.selectAll("legenddots")
