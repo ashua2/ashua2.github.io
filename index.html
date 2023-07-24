@@ -18,7 +18,78 @@
         <select id="dropdown"></select>
         <div id="chartarea"></div>
 
-        <script type="text/javascript" src="charts/linechart.js"></script>
-            
+        <script>
+            // svg
+            var margin = {top: 25, right: 40, bottom: 70, left: 70};
+
+            width = 960 - margin.left - margin.right;
+            height = 500 - margin.top - margin.bottom; 
+
+            var factors = ["Deaths by Ethnicity", "Cases by Ethnicity", "Deaths by Gender", "Deaths by Age", "Cases by Age"];
+
+            var svg = d3.select("#chartarea")
+                .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+            // dropdown menu
+            d3.select("#dropdown")
+                .selectAll("alloptions").data(factors).enter().append("option")
+                .text(function (d) {return d;})
+                .attr("value", function (d) {return d;})
+                .style("font-family", "tahoma");
+
+            // dataset cleaning + storing
+            var parseTime = d3.timeParse('%m-%d%-%Y');
+            var formatTime = d3.timeFormat("%B %d, %Y");
+            var races = ["Black", "Asian", "Latinx", "White", "Other"];
+            var colors = ["orange", "violet", "cornflowerblue", "crimson", "mediumaquamarine"];
+
+            d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
+                console.log(dataset);
+
+                function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
+                    svg.selectAll("*").remove();
+                    if (selectedGroup == factors[0]) {
+                        svg.append("circle")
+                            .attr("cx", 100)
+                            .attr("cy", 100)
+                            .attr("r", 10)
+                            .attr("fill", "pink");
+                    } else if (selectedGroup == factors[1]) {
+                        d3.select("svg").append("circle")
+                            .attr("cx", 200)
+                            .attr("cy", 150)
+                            .attr("r", 10)
+                            .attr("fill", "peru");
+                    } else if (selectedGroup == factors[2]) {
+                        </script><script type="text/javascript" src="charts/linechart.js"></script><script>
+                    } else if (selectedGroup == factors[3]) {
+                        svg.append("circle")
+                            .attr("cx", 400)
+                            .attr("cy", 250)
+                            .attr("r", 10)
+                            .attr("fill", "powderblue");
+                    } else {
+                        svg.append("circle")
+                            .attr("cx", 450)
+                            .attr("cy", 270)
+                            .attr("r", 10)
+                            .attr("fill", "rosybrown");
+                    }
+                }
+
+                d3.select("#dropdown").on("change", function(d) {
+                    // recover the option that has been chosen
+                    var selectedOption = d3.select(this).property("value");
+                    // run the updateChart function with this selected option
+                    updateChart(selectedOption);
+                    // console.log(d3.select(this).property("value"));
+
+                })
+            });
+        </script>
     </body>
 </html>

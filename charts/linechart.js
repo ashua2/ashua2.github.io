@@ -1,5 +1,5 @@
 
-// svg
+/* // svg
 var margin = {top: 25, right: 40, bottom: 70, left: 70};
 
 width = 960 - margin.left - margin.right;
@@ -30,9 +30,9 @@ var races = ["Black", "Asian", "Latinx", "White", "Other"];
 var colors = ["orange", "violet", "cornflowerblue", "crimson", "mediumaquamarine"];
 
 d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
-    console.log(dataset);
+    console.log(dataset); */
 
-    function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
+    /* function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
         svg.selectAll("*").remove();
         if (selectedGroup == factors[0]) {
             svg.append("circle")
@@ -74,12 +74,12 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
         updateChart(selectedOption);
         // console.log(d3.select(this).property("value"));
 
-    })
+    }) */
 
     var dates_deaths_race = [];
 
     dataset.forEach(function(data) {
-        data.cases_female = +data.cases_female;
+        /* data.cases_female = +data.cases_female;
         data.deathsTotal = +data.deathsTotal,
         data.casesTotal = +data.casesTotal
         data.hospitalizationsTotal = +data.hospitalizationsTotal;
@@ -90,7 +90,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
         data.cases_50_59 = +data.cases_50_59;
         data.cases_60_69 = +data.cases_60_69;
         data.cases_70_79 = +data.cases_70_79;
-        data.cases_80 = +data.cases_80;
+        data.cases_80 = +data.cases_80; */
 
         let race_deaths = {
             "date": new Date(+(data.date.slice(6)), +(data.date.slice(0,2) - 1), +(data.date.slice(3,5))),
@@ -110,7 +110,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
         return o1.date - o2.date;
     });
 
-    console.log(dates_deaths_race);
+    //console.log(dates_deaths_race);
 
 // axes + labels
     var dates_x_axis = d3.scaleTime()
@@ -258,6 +258,3 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
         .attr("y1", 355)
         .attr("x2", 450)
         .attr("y2", 185);
-
-
-});
