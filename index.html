@@ -53,7 +53,7 @@
                 console.log(dataset);
 
                 function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
-                    d3.select("svg").selectAll("*").remove();
+                    svg.selectAll("*").remove();
                     if (selectedGroup == factors[0]) {
                         svg.append("circle")
                             .attr("cx", 100)
@@ -141,12 +141,12 @@
                     .domain([0, 30])
                     .range([height, 0]);
                 
-                d3.select("svg").append("g")
-                    .attr("transform","translate(75,30)")
+                svg.append("g")
+                    .attr("transform","translate("+margin.right+",30)")
                     .call(d3.axisLeft(deaths_y_axis));
 
-                d3.select("svg").append("g")
-                    .attr("transform","translate(75," + (height + margin.top + 20) + ")")
+                svg.append("g")
+                    .attr("transform","translate("+margin.right+","+(height + margin.top + 20)+")")
                     .call(d3.axisBottom(dates_x_axis));
                 
                 svg.append('text')
