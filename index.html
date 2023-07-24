@@ -60,6 +60,7 @@
                             .attr("r", 10)
                             .attr("fill", "pink");
                     } else if (selectedGroup == factors[1]) {
+                        d3.select("svg").selectAll("*").remove();
                         svg.append("circle")
                             .attr("cx", 200)
                             .attr("cy", 150)
