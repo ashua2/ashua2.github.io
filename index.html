@@ -13,10 +13,10 @@
 
     <body>
         <h1 style="text-align:center;font-family:tahoma;color:darkslategray">Data Visualization of COVID-19 in Chicago</h1>
-        <p style="font-family:tahoma">testing</p>
+        <p style="font-family:tahoma">Chart Factors</p>
 
         <select id="dropdown"></select>
-        <div id="linechart"></div>
+        <div id="chartarea"></div>
             
         <script>
             // svg
@@ -27,7 +27,7 @@
 
             var factors = ["Deaths by Ethnicity", "Cases by Ethnicity", "Deaths by Gender", "Deaths by Age", "Cases by Age"];
 
-            var svg = d3.select("#linechart")
+            var svg = d3.select("#chartarea")
                 .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
@@ -51,6 +51,21 @@
 
             d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
                 console.log(dataset);
+
+                function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
+                    console.log(selectedGroup);
+                }
+
+                d3.select("#dropdown").on("change", function(d) {
+                    // recover the option that has been chosen
+                    //var selectedOption = d3.select(this).property("value");
+                    // run the updateChart function with this selected option
+                    // updateChart(selectedOption);
+                    console.log(d3.select(this).property("value"));
+
+                })
+
+                // updateChart()
                 var dates_deaths_race = [];
 
                 dataset.forEach(function(data) {
@@ -88,7 +103,6 @@
                 console.log(dates_deaths_race);
 
             // creating axes + labels
-
                 var dates_x_axis = d3.scaleTime()
                     .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
                     .range([0, width]);
@@ -208,7 +222,6 @@
                     .on("mouseleave", mouseleave); */
 
             // legend
-
                 svg.selectAll("legenddots")
                     .data(colors).enter().append("circle")
                         .attr("cx", 750)
