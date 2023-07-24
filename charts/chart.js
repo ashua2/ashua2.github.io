@@ -89,47 +89,12 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.append("path")
                 .datum(dates_deaths_race)
                 .attr("fill", "none")
-                .attr("stroke", "cornflowerblue")
+                .attr("stroke", function(d, i) { return colors[i % 5]})
                 .attr("stroke-width", 1.5)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d) { return deaths_y_axis(d.latinx_deaths); }));
+                    .y(function(d, i) { return deaths_y_axis(d[attributes[i % 5]]); }));
 
-            svg.append("path")
-                .datum(dates_deaths_race)
-                .attr("fill", "none")
-                .attr("stroke", "violet")
-                .attr("stroke-width", 1.5)
-                .attr("d", d3.line()
-                    .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d) { return deaths_y_axis(d.asian_deaths); }));
-
-            svg.append("path")
-                .datum(dates_deaths_race)
-                .attr("fill", "none")
-                .attr("stroke", "orange")
-                .attr("stroke-width", 1.5)
-                .attr("d", d3.line()
-                    .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d) { return deaths_y_axis(d.black_deaths); }));
-
-            svg.append("path")
-                .datum(dates_deaths_race)
-                .attr("fill", "none")
-                .attr("stroke", "crimson")
-                .attr("stroke-width", 1.5)
-                .attr("d", d3.line()
-                    .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d) { return deaths_y_axis(d.white_deaths); }));
-
-            svg.append("path")
-                .datum(dates_deaths_race)
-                .attr("fill", "none")
-                .attr("stroke", "mediumaquamarine")
-                .attr("stroke-width", 1.5)
-                .attr("d", d3.line()
-                    .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d) { return deaths_y_axis(d.other_deaths); }));
 
         // legend
             svg.selectAll("legenddots")
@@ -142,7 +107,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.selectAll("legendlabels")
                 .data(races).enter().append("text")
                     .attr("x", 810)
-                    .attr("y", function(d,i) {return 20 + i*20;})
+                    .attr("y", function(d, i) {return 20 + i*20;})
                     .attr("alignment-baseline","middle")
                     .text(function(d) {return d;})
                     .style("font-size", "13px").style("font-family", "tahoma");
