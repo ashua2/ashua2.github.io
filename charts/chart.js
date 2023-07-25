@@ -4,7 +4,7 @@ var margin = {top: 25, right: 40, bottom: 70, left: 70};
 width = 960 - margin.left - margin.right;
 height = 500 - margin.top - margin.bottom; 
 
-var all_options = ["None", "Deaths by Ethnicity", "Cases by Ethnicity", "Deaths by Gender", "Deaths by Age", "Cases by Age"];
+var all_options = ["None", "Deaths by Ethnicity", "Cases by Ethnicity", "Deaths by Age", "Cases by Age"];
 
 var svg = d3.select("#chartarea")
     .append("svg")
@@ -30,22 +30,28 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
 
     function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
         svg.selectAll("*").remove();
-        if (selectedGroup == all_options[1]) { // line chart by ethnicity
+        if (selectedGroup == all_options[0]) {}
+        else if (selectedGroup == all_options[1] || selectedGroup == all_options[2]) { // line charts by ethnicity
             var dates_deaths_race = [];
             var races = ["Black", "Asian", "Latinx", "White", "Other"];
             var colors = ["orange", "violet", "cornflowerblue", "crimson", "mediumaquamarine"];
 
             dataset.forEach(function(data) {
-                let race_deaths = {
+                let race_deaths_cases = {
                     "date": new Date(+(data.date.slice(6)), +(data.date.slice(0,2) - 1), +(data.date.slice(3,5))),
                     "latinx_deaths": +data.deaths_latinx,
                     "asian_deaths": +data.deaths_asian_nonlat,
                     "black_deaths": +data.deaths_black_nonlat,
                     "white_deaths": +data.deaths_white_nonlat,
-                    "other_deaths": +data.deaths_other_nonlat
+                    "other_deaths": +data.deaths_other_nonlat,
+                    "latinx_cases": +data.cases_latinx,
+                    "asian_cases": +data.cases_asian_nonlat,
+                    "black_cases": +data.case_black_nonlat,
+                    "white_cases": +data.cases_white_nonlat,
+                    "other_cases": +data.cases_other_nonlat
                 }
-                if (race_deaths.date <= new Date(2021, 2, 1) && race_deaths.date >= new Date(2020, 2, 1)) {
-                dates_deaths_race.push(race_deaths);
+                if (race_deaths_cases.date <= new Date(2021, 2, 1) && race_deaths_cases.date >= new Date(2020, 2, 1)) {
+                    dates_deaths_race.push(race_deaths_cases);
                 }
             });
             dates_deaths_race.sort(function(o1,o2){
@@ -57,12 +63,28 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .domain([new Date(2020, 2, 1), new Date(2021, 2, 1)])
                 .range([0, width]);
 
-            var deaths_y_axis = d3.scaleLinear()
-                .domain([0, 30])
-                .range([height, 0]);
+            if (selectedGroup == all_options[1]) { // cases
+                var y_axis = d3.scaleLinear()
+                    .domain([0, 30])
+                    .range([height, 0]);
+
+                svg.append('text')
+                    .attr('text-anchor', 'middle').attr('transform', 'translate(-35,' + height/2 + ')rotate(-90)')
+                    .style('font-family', 'tahoma').style('font-size', 15)
+                    .text('Deaths');
+            } else {                              // deaths
+                var y_axis = d3.scaleLinear()
+                    .domain([0, 2750])
+                    .range([height, 0]);
+
+                svg.append('text')
+                    .attr('text-anchor', 'middle').attr('transform', 'translate(-35,' + height/2 + ')rotate(-90)')
+                    .style('font-family', 'tahoma').style('font-size', 15)
+                    .text('Cases');
+            }
 
             svg.append("g")
-                .call(d3.axisLeft(deaths_y_axis));
+                .call(d3.axisLeft(y_axis));
 
             svg.append("g")
                 .attr("transform","translate(0,"+height+")")
@@ -73,22 +95,20 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .style('font-family', 'tahoma').style('font-size', 15)
                 .text('Month');
 
-            svg.append('text')
-                .attr('text-anchor', 'middle').attr('transform', 'translate(-35,' + height/2 + ')rotate(-90)')
-                .style('font-family', 'tahoma').style('font-size', 15)
-                .text('Deaths');
-
         // colored lines
             svg.append("path")
                 .datum(dates_deaths_race)
                 .transition()
-                .duration(1000)
+                .duration(500)
                 .attr("fill", "none")
                 .attr("stroke", "cornflowerblue")
                 .attr("stroke-width", 1.5)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d) { return deaths_y_axis(d.latinx_deaths); }));
+                    .y(function(d) {
+                        if (selectedGroup == all_options[2]) { return y_axis(d.latinx_cases); }
+                        return y_axis(d.latinx_deaths); 
+                    }));
 
             svg.append("path")
                 .datum(dates_deaths_race)
@@ -99,34 +119,52 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .attr("stroke-width", 1.5)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d) { return deaths_y_axis(d.asian_deaths); }));
+                    .y(function(d) {
+                        if (selectedGroup == all_options[2]) { return y_axis(d.latinx_cases); }
+                        return y_axis(d.latinx_deaths); 
+                    }));
 
             svg.append("path")
                 .datum(dates_deaths_race)
+                .transition()
+                .duration(1500)
                 .attr("fill", "none")
                 .attr("stroke", "orange")
                 .attr("stroke-width", 1.5)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d) { return deaths_y_axis(d.black_deaths); }));
+                    .y(function(d) {
+                        if (selectedGroup == all_options[2]) { return y_axis(d.latinx_cases); }
+                        return y_axis(d.latinx_deaths); 
+                    }));
 
             svg.append("path")
                 .datum(dates_deaths_race)
+                .transition()
+                .duration(2000)
                 .attr("fill", "none")
                 .attr("stroke", "crimson")
                 .attr("stroke-width", 1.5)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d) { return deaths_y_axis(d.white_deaths); }));
+                    .y(function(d) {
+                        if (selectedGroup == all_options[2]) { return y_axis(d.latinx_cases); }
+                        return y_axis(d.latinx_deaths); 
+                    }));
 
             svg.append("path")
                 .datum(dates_deaths_race)
+                .transition()
+                .duration(2500)
                 .attr("fill", "none")
                 .attr("stroke", "mediumaquamarine")
                 .attr("stroke-width", 1.5)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d) { return deaths_y_axis(d.other_deaths); }));
+                    .y(function(d) {
+                        if (selectedGroup == all_options[2]) { return y_axis(d.latinx_cases); }
+                        return y_axis(d.latinx_deaths); 
+                    }));
 
         // legend
             svg.selectAll("legenddots")
@@ -145,68 +183,67 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .style("font-size", "13px").style("font-family", "tahoma");
 
         // annotations
+            if (selectedGroup == all_options[1]) {
             //black deaths annotation
-            svg.append("text")
-                .attr("x", 140)
-                .attr("y", 5)
-                .html("Black deaths were at an all-time high on "+formatTime(dates_deaths_race[52].date)+", with a total of "+dates_deaths_race[52].black_deaths+" deaths.")
-                .style("font-size", "10px").style("font-family", "verdana").style("stroke", "darkorange").style("letter-spacing", 1.5);
-            svg.append('line')
-                .style("stroke", "darkorange")
-                .style("stroke-width", 1)
-                .attr("x1", 120)
-                .attr("y1", 35)
-                .attr("x2", 140)
-                .attr("y2", 10);
+                svg.append("text")
+                    .attr("x", 140)
+                    .attr("y", 5)
+                    .html("Black deaths were at an all-time high on "+formatTime(dates_deaths_race[52].date)+", with a total of "+dates_deaths_race[52].black_deaths+" deaths.")
+                    .style("font-size", "10px").style("font-family", "verdana").style("stroke", "darkorange").style("letter-spacing", 1.5);
+                svg.append('line')
+                    .style("stroke", "darkorange")
+                    .style("stroke-width", 1)
+                    .attr("x1", 120)
+                    .attr("y1", 35)
+                    .attr("x2", 140)
+                    .attr("y2", 10);
 
             //latinx deaths annotation
-            svg.append("text")
-                .attr("x", 190)
-                .attr("y", 40)
-                .html("Latinx deaths were at an all-time high on "+formatTime(dates_deaths_race[65].date)+", with a total of "+dates_deaths_race[65].latinx_deaths+" deaths.")
-                .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100);
-            svg.append("text")
-                .attr("x", 185)
-                .attr("y", 53)
-                .html("This point begins the trend of Latinx deaths generally being the highest of all ethnicities.")
-                .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100);
+                svg.append("text")
+                    .attr("x", 190)
+                    .attr("y", 40)
+                    .html("Latinx deaths were at an all-time high on "+formatTime(dates_deaths_race[65].date)+", with a total of "+dates_deaths_race[65].latinx_deaths+" deaths.")
+                    .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100);
+                svg.append("text")
+                    .attr("x", 185)
+                    .attr("y", 53)
+                    .html("This point begins the trend of Latinx deaths generally being the highest of all ethnicities.")
+                    .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100);
 
-            svg.append('line')
-                .style("stroke", "royalblue")
-                .style("stroke-width", 1)
-                .attr("x1", 185)
-                .attr("y1", 40)
-                .attr("x2", 160)
-                .attr("y2", 50);
+                svg.append('line')
+                    .style("stroke", "royalblue")
+                    .style("stroke-width", 1)
+                    .attr("x1", 185)
+                    .attr("y1", 40)
+                    .attr("x2", 160)
+                    .attr("y2", 50);
 
             //white deaths annotation
-            svg.append("text")
-                .attr("x", 225)
-                .attr("y", 170)
-                .html("Some of the few times when white deaths exceeded all other ethnicities.")
-                .style("font-size", "10px").style("font-family", "verdana").style("stroke", "maroon").style("letter-spacing", 1.5).style("font-weight", 100);
+                svg.append("text")
+                    .attr("x", 225)
+                    .attr("y", 170)
+                    .html("Some of the few times when white deaths exceeded all other ethnicities.")
+                    .style("font-size", "10px").style("font-family", "verdana").style("stroke", "maroon").style("letter-spacing", 1.5).style("font-weight", 100);
 
-            svg.append('line')
-                .style("stroke", "maroon")
-                .style("stroke-width", 1)
-                .attr("x1", 570)
-                .attr("y1", 293)
-                .attr("x2", 450)
-                .attr("y2", 185);
-            svg.append('line')
-                .style("stroke", "maroon")
-                .style("stroke-width", 1)
-                .attr("x1", 505)
-                .attr("y1", 355)
-                .attr("x2", 450)
-                .attr("y2", 185);
-        } else if (selectedGroup == all_options[2]) {
-
-        } else if (selectedGroup == all_options[3]) {
-
-        } else if (selectedGroup == all_options[4]) {
-
-        } else {
+                svg.append('line')
+                    .style("stroke", "maroon")
+                    .style("stroke-width", 1)
+                    .attr("x1", 570)
+                    .attr("y1", 293)
+                    .attr("x2", 450)
+                    .attr("y2", 185);
+                svg.append('line')
+                    .style("stroke", "maroon")
+                    .style("stroke-width", 1)
+                    .attr("x1", 505)
+                    .attr("y1", 355)
+                    .attr("x2", 450)
+                    .attr("y2", 185);
+            } else {
+                
+            }
+            
+        } else { 
 
         }
     }
