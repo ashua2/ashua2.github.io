@@ -78,7 +78,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .range([height, 0]);
 
                 svg.append('text')
-                    .attr('text-anchor', 'middle').attr('transform', 'translate(-35,' + height/2 + ')rotate(-90)')
+                    .attr('text-anchor', 'middle').attr('transform', 'translate(-40,' + height/2 + ')rotate(-90)')
                     .style('font-family', 'tahoma').style('font-size', 15)
                     .text('Cases');
             }
@@ -106,8 +106,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
                     .y(function(d) {
-                        if (selectedGroup == all_options[2]) { return y_axis(d.latinx_cases); }
-                        return y_axis(d.latinx_deaths); 
+                        if (selectedGroup == all_options[1]) { return y_axis(d.latinx_deaths); }
+                        return y_axis(d.latinx_cases); 
                     }));
 
             svg.append("path")
@@ -120,8 +120,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
                     .y(function(d) {
-                        if (selectedGroup == all_options[2]) { return y_axis(d.latinx_cases); }
-                        return y_axis(d.latinx_deaths); 
+                        if (selectedGroup == all_options[1]) { return y_axis(d.asian_deaths); }
+                        return y_axis(d.asian_cases); 
                     }));
 
             svg.append("path")
@@ -134,8 +134,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
                     .y(function(d) {
-                        if (selectedGroup == all_options[2]) { return y_axis(d.latinx_cases); }
-                        return y_axis(d.latinx_deaths); 
+                        if (selectedGroup == all_options[1]) { return y_axis(d.black_deaths); }
+                        return y_axis(d.black_cases); 
                     }));
 
             svg.append("path")
@@ -148,8 +148,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
                     .y(function(d) {
-                        if (selectedGroup == all_options[2]) { return y_axis(d.latinx_cases); }
-                        return y_axis(d.latinx_deaths); 
+                        if (selectedGroup == all_options[1]) { return y_axis(d.white_deaths); }
+                        return y_axis(d.white_cases); 
                     }));
 
             svg.append("path")
@@ -162,8 +162,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
                     .y(function(d) {
-                        if (selectedGroup == all_options[2]) { return y_axis(d.latinx_cases); }
-                        return y_axis(d.latinx_deaths); 
+                        if (selectedGroup == all_options[1]) { return y_axis(d.other_deaths); }
+                        return y_axis(d.other_cases); 
                     }));
 
         // legend
@@ -191,6 +191,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .html("Black deaths were at an all-time high on "+formatTime(dates_deaths_race[52].date)+", with a total of "+dates_deaths_race[52].black_deaths+" deaths.")
                     .style("font-size", "10px").style("font-family", "verdana").style("stroke", "darkorange").style("letter-spacing", 1.5);
                 svg.append('line')
+                    .transition()
+                    .duration(5000)
                     .style("stroke", "darkorange")
                     .style("stroke-width", 1)
                     .attr("x1", 120)
@@ -233,6 +235,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .attr("x2", 450)
                     .attr("y2", 185);
                 svg.append('line')
+                    .transition()
+                    .duration(9000)
                     .style("stroke", "maroon")
                     .style("stroke-width", 1)
                     .attr("x1", 505)
