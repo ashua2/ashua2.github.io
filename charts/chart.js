@@ -34,30 +34,23 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             var dates_deaths_race = [];
             var races = ["Black", "Asian", "Latinx", "White", "Other"];
             var colors = ["orange", "violet", "cornflowerblue", "crimson", "mediumaquamarine"];
-            var attributes = ["latinx_deaths", "asian_deaths", "black_deaths", "white_deaths", "other_deaths"];
 
-            for (let i = 0; i < 5; i++) {
-                dataset.forEach(function(data) {
-                    let race_deaths = {
-                        "date": new Date(+(data.date.slice(6)), +(data.date.slice(0,2) - 1), +(data.date.slice(3,5))),
-                        "latinx_deaths": +data.deaths_latinx,
-                        "asian_deaths": +data.deaths_asian_nonlat,
-                        "black_deaths": +data.deaths_black_nonlat,
-                        "white_deaths": +data.deaths_white_nonlat,
-                        "other_deaths": +data.deaths_other_nonlat
-                    }
-                    if (race_deaths.date <= new Date(2021, 2, 1) && race_deaths.date >= new Date(2020, 2, 1)) {
-                        dates_deaths_race.push(race_deaths);
-                    }
-                });
-            }
-
+            dataset.forEach(function(data) {
+                let race_deaths = {
+                    "date": new Date(+(data.date.slice(6)), +(data.date.slice(0,2) - 1), +(data.date.slice(3,5))),
+                    "latinx_deaths": +data.deaths_latinx,
+                    "asian_deaths": +data.deaths_asian_nonlat,
+                    "black_deaths": +data.deaths_black_nonlat,
+                    "white_deaths": +data.deaths_white_nonlat,
+                    "other_deaths": +data.deaths_other_nonlat
+                }
+                if (race_deaths.date <= new Date(2021, 2, 1) && race_deaths.date >= new Date(2020, 2, 1)) {
+                dates_deaths_race.push(race_deaths);
+                }
+            });
             dates_deaths_race.sort(function(o1,o2){
                 return o1.date - o2.date;
             });
-
-
-            console.log(dates_deaths_race);
 
         // axes + labels
             var dates_x_axis = d3.scaleTime()
@@ -89,15 +82,47 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.append("path")
                 .datum(dates_deaths_race)
                 .attr("fill", "none")
-                .attr("stroke", function(d, i) {
-                    console.log(colors[i % 5]);
-                    return colors[i % 5];
-                })
+                .attr("stroke", "cornflowerblue")
                 .attr("stroke-width", 1.5)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
-                    .y(function(d, i) { return deaths_y_axis(d[attributes[i % 5]]); }));
+                    .y(function(d) { return deaths_y_axis(d.latinx_deaths); }));
 
+            svg.append("path")
+                .datum(dates_deaths_race)
+                .attr("fill", "none")
+                .attr("stroke", "violet")
+                .attr("stroke-width", 1.5)
+                .attr("d", d3.line()
+                    .x(function(d) { return dates_x_axis(d.date); })
+                    .y(function(d) { return deaths_y_axis(d.asian_deaths); }));
+
+            svg.append("path")
+                .datum(dates_deaths_race)
+                .attr("fill", "none")
+                .attr("stroke", "orange")
+                .attr("stroke-width", 1.5)
+                .attr("d", d3.line()
+                    .x(function(d) { return dates_x_axis(d.date); })
+                    .y(function(d) { return deaths_y_axis(d.black_deaths); }));
+
+            svg.append("path")
+                .datum(dates_deaths_race)
+                .attr("fill", "none")
+                .attr("stroke", "crimson")
+                .attr("stroke-width", 1.5)
+                .attr("d", d3.line()
+                    .x(function(d) { return dates_x_axis(d.date); })
+                    .y(function(d) { return deaths_y_axis(d.white_deaths); }));
+
+            svg.append("path")
+                .datum(dates_deaths_race)
+                .attr("fill", "none")
+                .attr("stroke", "mediumaquamarine")
+                .attr("stroke-width", 1.5)
+                .attr("d", d3.line()
+                    .x(function(d) { return dates_x_axis(d.date); })
+                    .y(function(d) { return deaths_y_axis(d.other_deaths); }));
 
         // legend
             svg.selectAll("legenddots")
@@ -110,7 +135,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.selectAll("legendlabels")
                 .data(races).enter().append("text")
                     .attr("x", 810)
-                    .attr("y", function(d, i) {return 20 + i*20;})
+                    .attr("y", function(d,i) {return 20 + i*20;})
                     .attr("alignment-baseline","middle")
                     .text(function(d) {return d;})
                     .style("font-size", "13px").style("font-family", "tahoma");
