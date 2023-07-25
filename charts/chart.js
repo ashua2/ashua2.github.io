@@ -26,7 +26,6 @@ var parseTime = d3.timeParse('%m-%d%-%Y');
 var formatTime = d3.timeFormat("%B %d, %Y");
 
 d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
-    console.log(dataset);
 
     function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
         svg.selectAll("*").remove();
@@ -242,8 +241,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .attr("y2", 185);
             } else {
                 svg.append("text")
-                    .attr("x", 10)
-                    .attr("y", 455)
+                    .attr("x", 0)
+                    .attr("y", 470)
                     .html("*Large dips in cases throughout data is due to many testing facilities being closed on weekends.")
                     .style("font-size", "8px").style("font-family", "verdana").style("stroke", "gray").style("letter-spacing", 1.5).style("font-weight", 100);
 
@@ -257,19 +256,19 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 svg.append('line')
                     .style("stroke", "royalblue")
                     .style("stroke-width", 1)
-                    .attr("x1", 580)
+                    .attr("x1", 600)
                     .attr("y1", 10)
-                    .attr("x2", 580)
-                    .attr("y2", 20);
+                    .attr("x2", 605)
+                    .attr("y2", 50);
 
                 //black cases annotation
                 svg.append("text")
-                    .attr("x", 100)
+                    .attr("x", 20)
                     .attr("y", 180)
-                    .html("Black cases were the highest of all ethnicities during the very beginning of the pandemic")
+                    .html("Black cases were the highest of all ethnicities during the beginning of the pandemic")
                     .style("font-size", "10px").style("font-family", "verdana").style("stroke", "darkorange").style("letter-spacing", 1.5).style("font-weight", 100);
                 svg.append("text")
-                    .attr("x", 100)
+                    .attr("x", 20)
                     .attr("y", 190)
                     .html("with an all-time high on "+formatTime(dates_deaths_race[53].date)+", with a total of "+dates_deaths_race[53].black_cases+" cases.")
                     .style("font-size", "10px").style("font-family", "verdana").style("stroke", "darkorange").style("letter-spacing", 1.5).style("font-weight", 100);
@@ -278,7 +277,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .style("stroke", "darkorange")
                     .style("stroke-width", 1)
                     .attr("x1", 70)
-                    .attr("y1", 400)
+                    .attr("y1", 275)
                     .attr("x2", 90)
                     .attr("y2", 200);
             }
