@@ -256,9 +256,9 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 svg.append('line')
                     .style("stroke", "royalblue")
                     .style("stroke-width", 1)
-                    .attr("x1", 600)
+                    .attr("x1", 575) // 575
                     .attr("y1", 10)
-                    .attr("x2", 605)
+                    .attr("x2", 590) // 590
                     .attr("y2", 50);
 
                 //black cases annotation
@@ -270,14 +270,14 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 svg.append("text")
                     .attr("x", 20)
                     .attr("y", 190)
-                    .html("with an all-time high on "+formatTime(dates_deaths_race[53].date)+", with a total of "+dates_deaths_race[53].black_cases+" cases.")
+                    .html("and had an all-time high on "+formatTime(dates_deaths_race[53].date)+", with a total of "+dates_deaths_race[53].black_cases+" cases.")
                     .style("font-size", "10px").style("font-family", "verdana").style("stroke", "darkorange").style("letter-spacing", 1.5).style("font-weight", 100);
 
                 svg.append('line')
                     .style("stroke", "darkorange")
                     .style("stroke-width", 1)
-                    .attr("x1", 70)
-                    .attr("y1", 275)
+                    .attr("x1", 90)
+                    .attr("y1", 325)
                     .attr("x2", 90)
                     .attr("y2", 200);
             }
