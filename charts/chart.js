@@ -4,7 +4,7 @@ var margin = {top: 25, right: 40, bottom: 70, left: 70};
 width = 960 - margin.left - margin.right;
 height = 500 - margin.top - margin.bottom; 
 
-var all_options = ["Intro", "Deaths by Ethnicity", "Cases by Ethnicity", "Deaths by Gender", "Deaths by Age", "Cases by Age"];
+var all_options = ["None", "Deaths by Ethnicity", "Cases by Ethnicity", "Deaths by Gender", "Deaths by Age", "Cases by Age"];
 
 var svg = d3.select("#chartarea")
     .append("svg")
@@ -30,7 +30,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
 
     function updateChart(selectedGroup) { // selectedGroup is a string of a factor (dropdown option)
         svg.selectAll("*").remove();
-        if (selectedGroup == factors[0]) { // line chart by ethnicity
+        if (selectedGroup == all_options[1]) { // line chart by ethnicity
             var dates_deaths_race = [];
             var races = ["Black", "Asian", "Latinx", "White", "Other"];
             var colors = ["orange", "violet", "cornflowerblue", "crimson", "mediumaquamarine"];
@@ -200,11 +200,11 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .attr("y1", 355)
                 .attr("x2", 450)
                 .attr("y2", 185);
-        } else if (selectedGroup == factors[1]) {
+        } else if (selectedGroup == all_options[2]) {
 
-        } else if (selectedGroup == factors[2]) {
+        } else if (selectedGroup == all_options[3]) {
 
-        } else if (selectedGroup == factors[3]) {
+        } else if (selectedGroup == all_options[4]) {
 
         } else {
 
