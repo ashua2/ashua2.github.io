@@ -74,7 +74,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .text('Deaths');
             } else {                              // deaths
                 var y_axis = d3.scaleLinear()
-                    .domain([0, 2750])
+                    .domain([0, 1500])
                     .range([height, 0]);
 
                 svg.append('text')
@@ -99,7 +99,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.append("path")
                 .datum(dates_deaths_race)
                 .transition()
-                .duration(500)
+                .duration(250)
                 .attr("fill", "none")
                 .attr("stroke", "cornflowerblue")
                 .attr("stroke-width", 1.5)
@@ -113,7 +113,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.append("path")
                 .datum(dates_deaths_race)
                 .transition()
-                .duration(1000)
+                .duration(250)
                 .attr("fill", "none")
                 .attr("stroke", "violet")
                 .attr("stroke-width", 1.5)
@@ -127,7 +127,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.append("path")
                 .datum(dates_deaths_race)
                 .transition()
-                .duration(1500)
+                .duration(250)
                 .attr("fill", "none")
                 .attr("stroke", "orange")
                 .attr("stroke-width", 1.5)
@@ -141,7 +141,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.append("path")
                 .datum(dates_deaths_race)
                 .transition()
-                .duration(2000)
+                .duration(250)
                 .attr("fill", "none")
                 .attr("stroke", "crimson")
                 .attr("stroke-width", 1.5)
@@ -155,7 +155,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.append("path")
                 .datum(dates_deaths_race)
                 .transition()
-                .duration(2500)
+                .duration(250)
                 .attr("fill", "none")
                 .attr("stroke", "mediumaquamarine")
                 .attr("stroke-width", 1.5)
@@ -191,8 +191,6 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .html("Black deaths were at an all-time high on "+formatTime(dates_deaths_race[52].date)+", with a total of "+dates_deaths_race[52].black_deaths+" deaths.")
                     .style("font-size", "10px").style("font-family", "verdana").style("stroke", "darkorange").style("letter-spacing", 1.5);
                 svg.append('line')
-                    .transition()
-                    .duration(5000)
                     .style("stroke", "darkorange")
                     .style("stroke-width", 1)
                     .attr("x1", 120)
@@ -235,8 +233,6 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .attr("x2", 450)
                     .attr("y2", 185);
                 svg.append('line')
-                    .transition()
-                    .duration(9000)
                     .style("stroke", "maroon")
                     .style("stroke-width", 1)
                     .attr("x1", 505)
@@ -244,9 +240,47 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .attr("x2", 450)
                     .attr("y2", 185);
             } else {
-                
+                svg.append("text")
+                    .attr("x", 20)
+                    .attr("y", 500)
+                    .html("*Large dips in cases throughout data is due to many testing facilities being closed on weekends.")
+                    .style("font-size", "5px").style("font-family", "verdana").style("stroke", "gray").style("letter-spacing", 1.5).style("font-weight", "bold");
+
+                //latinx cases annotation
+                svg.append("text")
+                    .attr("x", 500)
+                    .attr("y", 55)
+                    .html("Latinx cases were at an all-time high on "+formatTime(dates_deaths_race[254].date)+", with a total of "+dates_deaths_race[254].latinx_cases+" cases.")
+                    .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100);
+
+                svg.append('line')
+                    .style("stroke", "royalblue")
+                    .style("stroke-width", 1)
+                    .attr("x1", 650)
+                    .attr("y1", 40)
+                    .attr("x2", 635)
+                    .attr("y2", 50);
+
+                //black cases annotation
+                svg.append("text")
+                    .attr("x", 140)
+                    .attr("y", 435)
+                    .html("Black cases were the highest of all ethnicities during the very beginning of the pandemic")
+                    .style("font-size", "10px").style("font-family", "verdana").style("stroke", "darkorange").style("letter-spacing", 1.5).style("font-weight", 100);
+                svg.append("text")
+                    .attr("x", 140)
+                    .attr("y", 443)
+                    .html("with an all-time high on "+formatTime(dates_deaths_race[53].date)+", with a total of "+dates_deaths_race[53].black_cases+" cases.")
+                    .style("font-size", "10px").style("font-family", "verdana").style("stroke", "darkorange").style("letter-spacing", 1.5).style("font-weight", 100);
+
+                svg.append('line')
+                    .style("stroke", "darkorange")
+                    .style("stroke-width", 1)
+                    .attr("x1", 120)
+                    .attr("y1", 450)
+                    .attr("x2", 135)
+                    .attr("y2", 465);
             }
-            
         } else { 
 
         }
