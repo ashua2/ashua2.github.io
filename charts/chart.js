@@ -4,7 +4,7 @@ var margin = {top: 25, right: 40, bottom: 70, left: 70};
 width = 960 - margin.left - margin.right;
 height = 500 - margin.top - margin.bottom; 
 
-var factors = ["Deaths by Ethnicity", "Cases by Ethnicity", "Deaths by Gender", "Deaths by Age", "Cases by Age"];
+var all_options = ["Intro", "Deaths by Ethnicity", "Cases by Ethnicity", "Deaths by Gender", "Deaths by Age", "Cases by Age"];
 
 var svg = d3.select("#chartarea")
     .append("svg")
@@ -16,7 +16,7 @@ var svg = d3.select("#chartarea")
 // dropdown menu
 
 d3.select("#dropdown")
-    .selectAll("alloptions").data(factors).enter().append("option")
+    .selectAll("theoptions").data(all_options).enter().append("option")
     .text(function (d) {return d;})
     .attr("value", function (d) {return d;})
     .style("font-family", "tahoma");
@@ -81,6 +81,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
         // colored lines
             svg.append("path")
                 .datum(dates_deaths_race)
+                .transition()
+                .duration(1000)
                 .attr("fill", "none")
                 .attr("stroke", "cornflowerblue")
                 .attr("stroke-width", 1.5)
@@ -90,6 +92,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
 
             svg.append("path")
                 .datum(dates_deaths_race)
+                .transition()
+                .duration(1000)
                 .attr("fill", "none")
                 .attr("stroke", "violet")
                 .attr("stroke-width", 1.5)
