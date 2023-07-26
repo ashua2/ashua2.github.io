@@ -411,18 +411,18 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .text("a simple tooltip");
 
             
-            const mouseover = (event, d) => {
+            const mouseover = (event) => {
                 tooltip.html(d.group);
                 return tooltip.style("visibility", "visible");
             };
 
-            const mousemove = (event, d) => {
+            const mousemove = (event) => {
                 const [x, y] = d3.pointer(event, document.body);
                 return tooltip.style("top", (y) + "px").style("left", (x + 100) + "px");
                 
             };
 
-            const mouseleave = (event, d) => {
+            const mouseleave = (event) => {
                 return tooltip.style("visibility", "hidden");
             } */
 
@@ -443,8 +443,14 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     return height - y_axis(d.total_cases)
                 })
                 .attr("fill", function(d, i) { return ages_colors[i]; })
-                .append("title") // TITLE APPENDED HERE
-                    .text(function(d) { return d.group; });
+                .on("mouseover", function(event) {
+                    svg.selectAll("testing").append("circle")
+                        .attr("cx", 100)
+                        .attr("cy", 100)
+                        .attr("r", 50)
+                        .style("fill", "red");
+                    console.log("moused over a rectangle :D")
+                });
 
 
         // annotations
