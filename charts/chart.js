@@ -24,6 +24,7 @@ d3.select("#dropdown")
 // dataset cleaning + storing
 var parseTime = d3.timeParse('%m-%d%-%Y');
 var formatTime = d3.timeFormat("%B %d, %Y");
+var timeSince = new Date(2020, 2, 1).getTime(); // returns 1583020800000 -> use (time - timeSince) / 86400000 for index
 
 d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f30d/raw/a381a14cc3838487451cc90cb5b9476c6e4cca3d/covid_deaths_cases_by_race.csv").then(function(dataset) {
 
@@ -81,6 +82,42 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
         ethn_array.sort(function(o1,o2){
                 return o1.date - o2.date;
         });
+        // tooltips
+        var tooltip = d3.select("#chartarea").append("div")
+                .style("position", "absolute")
+                .style("z-index", 10)
+                .style("visibility", "hidden")
+                .style("background-color", "linen")
+                .style("padding", "4px")
+                .style("font-family", "verdana")
+                .style("border", "solid")
+                .style("border-width", "1px")
+                .style("border-radius", "5px")
+                .style("font-size", "15px")
+                .style("stroke", "black")
+                .text("");
+
+        const mouseover = (event, d) => {
+            if (selectedGroup == all_options[1] || selectedGroup == all_options[2]) {
+                const [x, y] = d3.pointer(event, document.body);
+                var hovered_date = dates_x_axis.invert(x - margin.left);
+                var index = Math.round((hovered_date - timeSince) / 86400000);
+                var a = ethn_array[index];
+                if (selectedGroup == all_options[1]) {tooltip.html("<b>Date:</b> "+formatTime(hovered_date)+"<br><b>Black Deaths:</b> "+a.black_deaths+"<br><b>Asian Deaths:</b> "+a.asian_deaths+"<br><b>Latinx Deaths:</b> "+a.latinx_deaths+"<br><b>White Deaths:</b> "+a.white_deaths+"<br><b>Other Deaths:</b> "+a.other_deaths);}
+                else {tooltip.html("<b>Date:</b> "+formatTime(hovered_date)+"<br><b>Black Cases:</b> "+a.black_cases+"<br><b>Asian Cases:</b> "+a.asian_cases+"<br><b>Latinx Cases:</b> "+a.latinx_cases+"<br><b>White Cases:</b> "+a.white_cases+"<br><b>Other Cases:</b> "+a.other_cases);}
+            } 
+
+            return tooltip.style("visibility", "visible");
+        };
+        const mousemove = (event, d) => {
+            const [x, y] = d3.pointer(event, document.body);
+            return tooltip.style("top", (y) + "px").style("left", (x + 20) + "px");
+        };
+        const mouseleave = (event, d) => {
+            return tooltip.style("visibility", "hidden");
+        };
+        
+
         if (selectedGroup == all_options[0]) {}
         else if (selectedGroup == all_options[1] || selectedGroup == all_options[2]) { // line charts by ethnicity
         // axes + labels
@@ -124,11 +161,12 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
         // colored lines
             svg.append("path")
                 .datum(ethn_array)
-                .transition()
-                .duration(250)
                 .attr("fill", "none")
                 .attr("stroke", "cornflowerblue")
                 .attr("stroke-width", 1.5)
+                .on("mouseover", mouseover)
+                .on("mousemove", mousemove)
+                .on("mouseleave", mouseleave)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
                     .y(function(d) {
@@ -138,11 +176,12 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
 
             svg.append("path")
                 .datum(ethn_array)
-                .transition()
-                .duration(250)
                 .attr("fill", "none")
                 .attr("stroke", "violet")
                 .attr("stroke-width", 1.5)
+                .on("mouseover", mouseover)
+                .on("mousemove", mousemove)
+                .on("mouseleave", mouseleave)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
                     .y(function(d) {
@@ -152,11 +191,12 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
 
             svg.append("path")
                 .datum(ethn_array)
-                .transition()
-                .duration(250)
                 .attr("fill", "none")
                 .attr("stroke", "orange")
                 .attr("stroke-width", 1.5)
+                .on("mouseover", mouseover)
+                .on("mousemove", mousemove)
+                .on("mouseleave", mouseleave)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
                     .y(function(d) {
@@ -166,11 +206,12 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
 
             svg.append("path")
                 .datum(ethn_array)
-                .transition()
-                .duration(250)
                 .attr("fill", "none")
                 .attr("stroke", "crimson")
                 .attr("stroke-width", 1.5)
+                .on("mouseover", mouseover)
+                .on("mousemove", mousemove)
+                .on("mouseleave", mouseleave)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
                     .y(function(d) {
@@ -180,11 +221,12 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
 
             svg.append("path")
                 .datum(ethn_array)
-                .transition()
-                .duration(250)
                 .attr("fill", "none")
                 .attr("stroke", "mediumaquamarine")
                 .attr("stroke-width", 1.5)
+                .on("mouseover", mouseover)
+                .on("mousemove", mousemove)
+                .on("mouseleave", mouseleave)
                 .attr("d", d3.line()
                     .x(function(d) { return dates_x_axis(d.date); })
                     .y(function(d) {
@@ -228,7 +270,7 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 svg.append("text")
                     .attr("x", 190)
                     .attr("y", 40)
-                    .html("Latinx deaths were at an all-time high on "+formatTime(ethn_array[65].date)+", with a total of "+ethn_array[65].latinx_deaths+" deaths.")
+                    .html("Latinx deaths were at an all-time high on "+formatTime(ethn_array[69].date)+", with a total of "+ethn_array[69].latinx_deaths+" deaths.")
                     .style("font-size", "10px").style("font-family", "verdana").style("stroke", "royalblue").style("letter-spacing", 1.5).style("font-weight", 100);
                 svg.append("text")
                     .attr("x", 185)
@@ -400,32 +442,18 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.append("g")
                 .attr("transform","translate(0,"+height+")")
                 .call(d3.axisBottom(ages_x_axis));
-        
-        // tooltips
-            var tooltip = d3.select("#chartarea").append("div")
-                .style("position", "absolute")
-                .style("z-index", "10")
-                .style("visibility", "visible")
-                .style("background", "white")
-                .text("a simple tooltip");
 
-            
+        // tooltips
             const mouseover = (event, d) => {
-                tooltip.text(d.group);
-                console.log("mouseover");
+                tooltip.html("<b>Deaths: </b>"+d.total_deaths+"<br><b>Cases:</b> "+d.total_cases+"<br><b>Death Rate: </b>"+(Math.round(1000*(d.total_deaths / d.total_cases))/1000));
                 return tooltip.style("visibility", "visible");
             };
-
             const mousemove = (event, d) => {
                 const [x, y] = d3.pointer(event, document.body);
-                console.log("mousemove");
-                console.log("("+x+","+y+")");
-                return tooltip.style("top", (y) + "px").style("left", (x + 100) + "px");
+                return tooltip.style("top", (y) + "px").style("left", (x + 20) + "px");
                 
             };
-
             const mouseleave = (event, d) => {
-                console.log("mouseleave");
                 return tooltip.style("visibility", "hidden");
             }
 
@@ -446,7 +474,6 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .on("mouseover", mouseover)
                 .on("mousemove", mousemove)
                 .on("mouseleave", mouseleave);
-
 
         // annotations
             // the elderly
@@ -491,12 +518,8 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .attr("x2", 250)
                     .attr("y2", 20);
             }
-            
-
         }
-
     }
-
     d3.select("#dropdown").on("change", function(d) {
         var selectedOption = d3.select(this).property("value");
         updateChart(selectedOption);
