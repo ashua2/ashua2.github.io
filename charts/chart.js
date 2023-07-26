@@ -430,8 +430,6 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
         // bars
             svg.selectAll("bars")
                 .data(ages_array).enter().append('rect')
-                .transition()
-                .duration(250)
                 .attr("x", function(d) { return ages_x_axis(d.group); })
                 .attr("y", function(d) { 
                     if (selectedGroup == all_options[3]) { return y_axis(d.total_deaths); }
