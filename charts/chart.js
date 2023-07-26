@@ -31,7 +31,15 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
         svg.selectAll("*").remove();
         var ethn_array = [];
         var ages_text = ["0-17 Years", "18-29 Years", "30-39 Years", "40-49 Years", "50-59 Years", "60-69 Years", "70-79 Years", "80+ Years"];
-        var ages_array = [{"group": ages_text[0], "total": 0},{"group": ages_text[1], "total": 0},{"group": ages_text[2], "total": 0},{"group": ages_text[3], "total": 0},{"group": ages_text[4], "total": 0},{"group": ages_text[5], "total": 0},{"group": ages_text[6], "total": 0},{"group": ages_text[7], "total": 0}];
+        var ages_array = [
+         {"group": ages_text[0], "total_deaths": 0, "total_cases": 0},
+         {"group": ages_text[1], "total_deaths": 0, "total_cases": 0},
+         {"group": ages_text[2], "total_deaths": 0, "total_cases": 0},
+         {"group": ages_text[3], "total_deaths": 0, "total_cases": 0},
+         {"group": ages_text[4], "total_deaths": 0, "total_cases": 0},
+         {"group": ages_text[5], "total_deaths": 0, "total_cases": 0},
+         {"group": ages_text[6],"total_deaths": 0, "total_cases": 0},
+         {"group": ages_text[7], "total_deaths": 0, "total_cases": 0}]
         var races = ["Black", "Asian", "Latinx", "White", "Other"];
         var colors = ["orange", "violet", "cornflowerblue", "crimson", "mediumaquamarine"];
 
@@ -52,14 +60,22 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             }
             if (info.date <= new Date(2021, 2, 1) && info.date >= new Date(2020, 2, 1)) {
                 ethn_array.push(info);
-                ages_array[0].total += +data.cases_0_17;
-                ages_array[1].total += +data.cases_18_29;
-                ages_array[2].total += +data.cases_30_39;
-                ages_array[3].total += +data.cases_40_49;
-                ages_array[4].total += +data.cases_50_59;
-                ages_array[5].total += +data.cases_60_69;
-                ages_array[6].total += +data.cases_70_79;
-                ages_array[7].total += +data.cases_80;
+                ages_array[0].total_deaths += +data.deaths_0_17;
+                ages_array[1].total_deaths += +data.deaths_18_29;
+                ages_array[2].total_deaths += +data.deaths_30_39;
+                ages_array[3].total_deaths += +data.deaths_40_49;
+                ages_array[4].total_deaths += +data.deaths_50_59;
+                ages_array[5].total_deaths += +data.deaths_60_69;
+                ages_array[6].total_deaths += +data.deaths_70_79;
+                ages_array[7].total_deaths += +data.deaths_80;
+                ages_array[0].total_cases += +data.cases_0_17;
+                ages_array[1].total_cases += +data.cases_18_29;
+                ages_array[2].total_cases += +data.cases_30_39;
+                ages_array[3].total_cases += +data.cases_40_49;
+                ages_array[4].total_cases += +data.cases_50_59;
+                ages_array[5].total_cases += +data.cases_60_69;
+                ages_array[6].total_cases += +data.cases_70_79;
+                ages_array[7].total_cases += +data.cases_80;
             }
         });
         ethn_array.sort(function(o1,o2){
@@ -343,23 +359,35 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     .attr("y2", 260);
 
             }
-        } else { // cases + deaths by age (bar chart)
+        } else { // cases + deaths by age (bar charts)
         // axes + labels
-            
-            // var buckets = ["deaths_0_17", "deaths_18_29", "deaths_30_39", "deaths_40_49", "deaths_50_59", "deaths_60_69", "deaths_70_79","deaths_80_plus"];
             var ages_colors = ["#F374AE", "#0B4F6C", "#E3D26F", "#8D6A9F", "#A9E5BB", "#F7BFB4", "#32533D", "#FF8552"];
             var ages_x_axis = d3.scaleBand()
                 .domain(ages_text)
                 .range([0, width]).padding(0.4);
 
-            var y_axis = d3.scaleLinear()
-                .domain([0, 50])
-                .range ([height, 0]);
+            if (selectedGroup == all_options[3]) { // deaths
+                var y_axis = d3.scaleLinear()
+                .domain([0, 2000])
+                .range([height, 0])
+                .nice();
 
-            svg.append('text')
-                .attr('text-anchor', 'middle').attr('transform', 'translate(-35,' + height/2 + ')rotate(-90)')
+                svg.append('text')
+                .attr('text-anchor', 'middle').attr('transform', 'translate(-55,' + height/2 + ')rotate(-90)')
                 .style('font-family', 'tahoma').style('font-size', 15)
                 .text('Deaths');
+
+            } else { // cases
+                var y_axis = d3.scaleLinear()
+                .domain([0, 70000])
+                .range([height, 0])
+                .nice();
+
+                svg.append('text')
+                .attr('text-anchor', 'middle').attr('transform', 'translate(-55,' + height/2 + ')rotate(-90)')
+                .style('font-family', 'tahoma').style('font-size', 15)
+                .text('Cases');
+            }
 
             svg.append('text')
                 .attr('x', width/2).attr('y', height + 40).attr('text-anchor', 'middle')
@@ -372,28 +400,100 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
             svg.append("g")
                 .attr("transform","translate(0,"+height+")")
                 .call(d3.axisBottom(ages_x_axis));
+        
+        // tooltips
+            /* var tooltip = svg.selectAll("tooltip-area")
+                .append("div")
+                .style("position", "absolute")
+                .style("z-index", "10")
+                .style("visibility", "hidden")
+                .style("background", "#000")
+                .text("a simple tooltip");
+
+            
+            const mouseover = (event, d) => {
+                tooltip.html(d.group);
+                return tooltip.style("visibility", "visible");
+            };
+
+            const mousemove = (event, d) => {
+                const [x, y] = d3.pointer(event, document.body);
+                return tooltip.style("top", (y) + "px").style("left", (x + 100) + "px");
+                
+            };
+
+            const mouseleave = (event, d) => {
+                return tooltip.style("visibility", "hidden");
+            } */
+
 
         // bars
-            svg.selectAll("barschart")
+            svg.selectAll("bars")
                 .data(ages_array).enter().append('rect')
                 .transition()
                 .duration(250)
-                /* .attr("x", function(d) { return ages_x_axis(d.name); })
-                .attr("y", function(d) { return y_axis(d.total); })
-                .attr("width", ages_x_axis.bandWidth())
-                .attr("height", function(d) { return height - y_axis(d.total); })
-                .attr("fill", function(d, i) { return ages_colors[i]; }); */
-                .attr("x", function(d) {
-                    console.log(ages_x_axis(d.name));
-                    console.log(y_axis(d.total));
-                    return ages_x_axis(d.name); 
+                .attr("x", function(d) { return ages_x_axis(d.group); })
+                .attr("y", function(d) { 
+                    if (selectedGroup == all_options[3]) { return y_axis(d.total_deaths); }
+                    return y_axis(d.total_cases);
                 })
-                .attr("y", 100)
-                .attr("width", 50)
-                .attr("height", 100)
-                .attr("fill", function(d, i) { return ages_colors[i]; });
+                .attr("width", ages_x_axis.bandwidth())
+                .attr("height", function(d) { 
+                    if (selectedGroup == all_options[3]) { return height - y_axis(d.total_deaths); }
+                    return height - y_axis(d.total_cases)
+                })
+                .attr("fill", function(d, i) { return ages_colors[i]; })
+                .append("title") // TITLE APPENDED HERE
+                    .text(function(d) { return d.group; });
+
+
+        // annotations
+            // the elderly
+            if (selectedGroup == all_options[3]) {
+                svg.append("text")
+                    .attr("x", 140)
+                    .attr("y", 5)
+                    .html("Elderly people had the most deaths, with the number of deaths increasing with age")
+                    .style("font-size", "10px").style("font-family", "verdana").style("stroke", "#BA623C").style("letter-spacing", 1.5);
+                svg.append('line')
+                    .style("stroke", "#BA623C")
+                    .style("stroke-width", 1)
+                    .attr("x1", 750)
+                    .attr("y1", 35)
+                    .attr("x2", 700)
+                    .attr("y2", 10);
+            } else {
+                // 80+
+                svg.append("text")
+                    .attr("x", 250)
+                    .attr("y", 100)
+                    .html("Although cases are the lowest for people 80 and over, they have the highest number of deaths")
+                    .style("font-size", "10px").style("font-family", "verdana").style("stroke", "#BA623C").style("letter-spacing", 1.5);
+                svg.append('line')
+                    .style("stroke", "#BA623C")
+                    .style("stroke-width", 1)
+                    .attr("x1", 770)
+                    .attr("y1", 350)
+                    .attr("x2", 700)
+                    .attr("y2", 110);
+                // 18-29
+                svg.append("text")
+                    .attr("x", 100)
+                    .attr("y", 10)
+                    .html("Young people have the most cases but have the second least number of deaths")
+                    .style("font-size", "10px").style("font-family", "verdana").style("stroke", "#062A39").style("letter-spacing", 1.5);
+                svg.append('line')
+                    .style("stroke", "#062A39")
+                    .style("stroke-width", 1)
+                    .attr("x1", 200)
+                    .attr("y1", 50)
+                    .attr("x2", 250)
+                    .attr("y2", 20);
+            }
+            
 
         }
+
     }
 
     d3.select("#dropdown").on("change", function(d) {
