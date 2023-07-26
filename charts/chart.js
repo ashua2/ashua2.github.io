@@ -402,31 +402,32 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                 .call(d3.axisBottom(ages_x_axis));
         
         // tooltips
-            var tooltip = svg.selectAll("tooltip-area")
-                .append("div")
+            var tooltip = d3.select("#chartarea").append("div")
                 .style("position", "absolute")
                 .style("z-index", "10")
-                .style("visibility", "hidden")
-                .style("background", "#000")
+                .style("visibility", "visible")
+                .style("background", "white")
                 .text("a simple tooltip");
 
             
             const mouseover = (event, d) => {
-                tooltip.html(d.group);
-                console.log(d.group);
+                tooltip.text(d.group);
+                console.log("mouseover");
                 return tooltip.style("visibility", "visible");
             };
 
-            const mousemove = (event) => {
+            const mousemove = (event, d) => {
                 const [x, y] = d3.pointer(event, document.body);
+                console.log("mousemove");
+                console.log("("+x+","+y+")");
                 return tooltip.style("top", (y) + "px").style("left", (x + 100) + "px");
                 
             };
 
-            const mouseleave = (event) => {
+            const mouseleave = (event, d) => {
+                console.log("mouseleave");
                 return tooltip.style("visibility", "hidden");
             }
-
 
         // bars
             svg.selectAll("bars")
@@ -442,7 +443,9 @@ d3.csv("https://gist.githubusercontent.com/ashua2/c369a7bbca9311c50632a9a9c138f3
                     return height - y_axis(d.total_cases)
                 })
                 .attr("fill", function(d, i) { return ages_colors[i]; })
-                .on("mouseover", mouseover);
+                .on("mouseover", mouseover)
+                .on("mousemove", mousemove)
+                .on("mouseleave", mouseleave);
 
 
         // annotations
