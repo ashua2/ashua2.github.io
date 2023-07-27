@@ -2,13 +2,49 @@
 <html>
     <head>
         <title>Data Visualization of COVID-19 in Chicago</title>
+        <style>
+            label {
+                display: block;
+                padding-right: 45px;
+                text-indent: 15px;
+                text-align: right;
+                font-family: tahoma;
+            }
+            input {
+                float: right;
+                clear: right;
+                width: auto;
+                height: auto;
+                vertical-align: bottom;
+                position: relative;
+                text-align: right;
+            }
+        </style>
     </head>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <body>
-        <h1 style="text-align:center;font-family:tahoma;color:darkslategray">Data Visualization of COVID-19 in Chicago (March 2020 - March 2021)</h1>
-        <p style="font-family:tahoma"> &emsp; &emsp; Charts</p>
+        <h1 style="text-align:center;font-family:tahoma;color:darkslategray">COVID-19 in Chicago</h1>
+        <h3 style="text-align:center;font-family:tahoma;color:darkcyan">(March 2020 - March 2021)</h3>
+        <p style="text-align:left;font-family:tahoma">
+            &emsp;&emsp;<b>Charts</b>
+            <span id="filterheader" style="float:right; visibility:hidden">
+                <b>Filters</b>&emsp;&emsp;&emsp;&emsp;
+            </span>
+        </p>
         <select id="dropdown"></select>
+        <form>
+            <div id="boxes" style="visibility:hidden">
+                <label><input type="checkbox" id="black" onclick = "manageFilter()" checked/> Black&emsp; </label> 
+                <label><input type="checkbox" id="asian" onclick = "manageFilter()" checked/> Asian&emsp;</label>
+                <label><input type="checkbox" id="latinx" onclick = "manageFilter()" checked/> Latinx&emsp;</label>
+                <label><input type="checkbox" id="white" onclick = "manageFilter()" checked/> White&emsp;</label>
+                <label><input type="checkbox" id="other" onclick = "manageFilter()" checked/> Other&emsp;</label>
+                
+            </div>
+          </form>
+        
         <div id="chartarea"></div>
+    
         <script type="text/javascript" src="charts/chart.js"></script>
         <h5 style="font-family:tahoma">Data from: </h5> <a style="font-family:tahoma" href="https://data.cityofchicago.org/Health-Human-Services/COVID-19-Daily-Cases-Deaths-and-Hospitalizations/naz8-j4nc">COVID-19 Daily Cases, Deaths, and Hospitalizations</a>
     </body>
